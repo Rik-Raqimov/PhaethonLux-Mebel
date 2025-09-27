@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="utf-8">
+    <title>PhaethonLux - Interior Design Website Template Free</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/front/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/front/css/style.css" rel="stylesheet">
+
+<!--    &lt;!&ndash; jQuery &ndash;&gt;-->
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+
+<!--    &lt;!&ndash; jquery.event.move &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.event.move/2.0.0/jquery.event.move.min.js"></script>-->
+
+<!--    &lt;!&ndash; twentytwenty CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twentytwenty/1.0.0/twentytwenty.css" />-->
+
+<!--    &lt;!&ndash; twentytwenty JS &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/twentytwenty/1.0.0/jquery.twentytwenty.min.js"></script>-->
+
+    <style>
+        .img-service{
+        height: 200px !important;
+        object-fit: cover;
+        }
+    .container-slider {
+      position: relative;
+      width: 600px;
+      position: 50%;
+     }
+     .container-item{
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+     }
+       .container-slider input{
+            position: absolute;
+            top: 50%;
+
+        }
+      .container-slider input[type="range"] {
+      -webkit-appearance: none;
+      height: 0;
+      background: #ccc;
+      border-radius: 5px;
+      outline: none;
+      background-image: style("slide.svg");
+    }
+
+    .container-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #fffdfd;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .container-slider input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: #333;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+        .container-slider .image-container {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          overflow: hidden;
+        }
+
+        .container-slider .image-container img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+
+        .container-slider .image-after {
+          clip-path: inset(0 0 0 var(--position));
+        }
+        .before-after {
+        --position: 50%;
+        }
+        .container-slider .image-after {
+          clip-path: inset(0 0 0 var(--position));
+        }
+
+        .container-slider .slider {
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        .container-slider .slider-line,
+        .slider-button {
+          display: none; /* sadəcə vizual elementləri bağladım */
+        }
+
+        .service-item {
+    border: 15px;
+    overflow: hidden;            /* чтобы картинка и фон не выходили */
+    padding: 20px;
+    transition: all 0.4s ease;   /* плавный ховер */
+
+}
+
+.service-item:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.service-item .service-img {
+    display: block;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.service-item img {
+    border: 12px;         /* скругление картинки */
+    transition: transform 0.3s ease;
+
+}
+
+.service-item:hover img {
+    transform: scale(1.05);      /* картинка увеличивается при наведении */
+}
+.service-item h3{
+    transform: scale(1.2);
+    }
+<!--.service-item h3 {-->
+<!--    font-size: 1.3rem;-->
+<!--    font-weight: 600;-->
+<!--    margin-bottom: 10px;-->
+<!--    color: #333;-->
+<!--}-->
+
+.service-item p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+    </style>
+
+</head>
+<body>
+<div layout:fragment="content" class="bg-white p-0">
+
+    <!-- Hero Start -->
+    <div class="container-fluid pb-5 hero-header bg-light mb-5">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center mb-5">
+                <div class="col-lg-6">
+                    <h1 class="display-1 mb-4 animated slideInRight">Evinizi <span class="text-primary"> PhaethonLux </span>
+                        ilə Daha Yaxşı Edin</h1>
+                    <h5 class="d-inline-block border border-2 border-white py-3 px-5 mb-0 animated slideInRight">
+                        1990-cı ildən Mükafat qazanan Studio</h5>
+                </div>
+                <div class="col-lg-6">
+                    <div class="owl-carousel header-carousel animated fadeIn">
+                        <img class="img/-fluid" src="/front/img/hero-slider-1.jpg" alt="">
+                        <img class="img/-fluid" src="/front/img/hero-slider-2.jpg" alt="">
+                        <img class="img/-fluid" src="/front/img/hero-slider-3.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5 animated fadeIn">
+                <div class="col-md-6 col-lg-3">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 btn-square border border-2 border-white me-3">
+                            <i class="fa fa-robot text-primary"></i>
+                        </div>
+                        <h5 class="lh-base mb-0">Hazırlanmış Mebel</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 btn-square border border-2 border-white me-3">
+                            <i class="fa fa-robot text-primary"></i>
+                        </div>
+                        <h5 class="lh-base mb-0">Davamlı Material</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 btn-square border border-2 border-white me-3">
+                            <i class="fa fa-robot text-primary"></i>
+                        </div>
+                        <h5 class="lh-base mb-0">Yenilikçi Memarlar</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 btn-square border border-2 border-white me-3">
+                            <i class="fa fa-robot text-primary"></i>
+                        </div>
+                        <h5 class="lh-base mb-0">Büdcə Dostu</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+
+    <!-- Feature Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="text-center wow fadeIn" data-wow-delay="0.1s">
+                <h1 class="mb-5">İnsanlar <span class="text-uppercase text-primary bg-light px-2">Niyə Bizi Seçir</span>
+                </h1>
+            </div>
+            <div class="row g-5 align-items-center text-center">
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
+                    <i class="fa fa-calendar-alt fa-5x text-primary mb-4"></i>
+                    <h4>25+ illik təcrübə</h4>
+                    <p class="mb-0">25 ildən artıq təcrübəmizlə yüzlərlə ev və ofisi yeni nəfəs ilə canlandırmışıq.
+                        Təcrübə bizim ən böyük üstünlüyümüzdür.</p>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+                    <i class="fa fa-tasks fa-5x text-primary mb-4"></i>
+                    <h4>Ən Yaxşı İnteryer Dizaynı</h4>
+                    <p class="mb-0">Hər layihəmizdə zövq və funksionallığı birləşdirərək,
+                        sadəcə məkan deyil – ilham verən yaşam sahəsi yaradırıq.</p>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
+                    <i class="fa fa-pencil-ruler fa-5x text-primary mb-4"></i>
+                    <h4>İnnovativ Memarlar</h4>
+                    <p class="mb-0">Komandamız ən son trendləri və yaradıcı yanaşmanı birləşdirərək,
+                        gələcəyin memarlığını bu gün sizə təqdim edir.</p>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
+                    <i class="fa fa-user fa-5x text-primary mb-4"></i>
+                    <h4>Müştəri Məmnuniyyəti</h4>
+                    <p class="mb-0">Sizin rahatlığınız və xoşbəxtliyiniz bizim üçün hər şeydən önəmlidir. Hər addımda yanınızdayıq.</p>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+                    <i class="fa fa-hand-holding-usd fa-5x text-primary mb-4"></i>
+                    <h4>Büdcəyə Uyğun Həllər</h4>
+                    <p class="mb-0">Keyfiyyəti qoruyaraq, hər kəs üçün əlçatan və sərfəli qiymətlərlə xidmət göstəririk.</p>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
+                    <i class="fa fa-check fa-5x text-primary mb-4"></i>
+                    <h4>Davamlı Materiallar</h4>
+                    <p class="mb-0">Layihələrimizdə yalnız ekoloji təmiz və uzunömürlü materiallardan istifadə edirik.
+                        Təbiəti qorumaq bizim missiyamızdır.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Feature End -->
+
+
+    <!-- Service Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
+                <div th:each="servicesInfo : ${serviceInfos}" class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                    <h1 class="mb-5">
+                        <span th:text="${servicesInfo.heading}" style="display: inline-block;"></span>
+                        <span th:text="${servicesInfo.subtitle}" class="text-uppercase text-primary bg-light px-2" style="display: inline-block; margin-left: 10px;"></span>
+                    </h1>
+                    <p th:text="${servicesInfo.description1}"></p>
+                    <p th:text="${servicesInfo.description2}" class="mb-5"></p>
+                    <div class="d-flex align-items-center bg-light">
+                        <div class="btn-square flex-shrink-0 bg-primary" style="width: 100px; height: 100px;">
+                            <i class="fa fa-phone fa-2x text-white"></i>
+                        </div>
+                        <div class="px-3">
+                            <h3 th:text="${servicesInfo.phoneNumber}">+0123456789</h3>
+                            <span th:text="${servicesInfo.phoneText}">Call us direct 24/7 for get a free consultation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="row g-0">
+                    <div th:each="service : ${services}" class="col-md-6 wow fadeIn" data-wow-delay="0.2s">
+                            <div class="service-item h-100 d-flex flex-column justify-content-center bg-primary">
+                                <a href="#!" class="service-img position-relative mb-4">
+                                    <img class="img-fluid w-100 !h-[200px] img-service" th:src="${service.imageUrl}" alt="">
+                                    <h3 th:text="${service.title}" >Interior Design</h3>
+                                </a>
+                                <p th:text="${service.description}" class="mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+    <!-- Before/After blokları -->
+
+    <div class="container-fluid container-item">
+        <div th:each="item : ${beforeAfters}" class="before-after container-slider py-2">
+            <div class="image-container">
+                <img class="image-before slider-image" th:src="${item.beforeImageUrl}" alt="Before Image">
+                <img class="image-after slider-image" th:src="${item.afterImageUrl}" alt="After Image">
+            </div>
+            <input type="range" min="0" max="100" value="50"
+                   aria-label="Percentage of before photo shown"
+                   class="slider">
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="/portfolios" class="btn btn-primary">Layihələrə keçin</a>
+    </div>
+
+    <!-- Before Afters End -->
+
+
+    <!-- Newsletter Start -->
+    <div class="container-fluid bg-primary newsletter p-0">
+        <div class="container p-0">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-5 ps-lg-0 text-start wow fadeIn" data-wow-delay="0.2s">
+                    <img class="img/-fluid w-100" src="/front/img/newsletter.jpg" alt="">
+                </div>
+                <div class="col-md-7 py-5 newsletter-text wow fadeIn" data-wow-delay="0.5s">
+                    <div class="p-5">
+                        <h1 class="mb-5">Subscribe the <span
+                                class="text-uppercase text-primary bg-white px-2">Newsletter</span></h1>
+                        <div class="position-relative w-100 mb-2">
+                            <input class="form-control border-0 w-100 ps-4 pe-5" type="text"
+                                placeholder="Enter Your Email" style="height: 60px;">
+                            <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-2 me-2"><i
+                                    class="fa fa-paper-plane text-primary fs-4"></i></button>
+                        </div>
+                        <p class="mb-0">Diam sed sed dolor stet amet eirmod</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Newsletter End -->
+</div>
+
+<script src="/front/js/main.js"></script>
+</body>
+
+</html>

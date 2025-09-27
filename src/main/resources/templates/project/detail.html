@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="utf-8">
+    <title>Project Detail - iSTUDIO</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+</head>
+
+<body>
+<div layout:fragment="content" class="bg-white p-0">
+
+    <!-- Hero Start -->
+    <div class="container-fluid bg-light py-5 mb-5">
+        <div  class="container text-center">
+            <h1 class="display-4 text-dark mb-3" th:text="${project.title}">Название проекта</h1>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Project Main Image -->
+    <div class="container mb-5">
+        <div class="text-center">
+            <img class="img-fluid rounded shadow" th:src="${project.imageUrl}" alt="Project Image">
+        </div>
+    </div>
+    <!-- Project Main Image End -->
+
+
+    <!-- Project Description -->
+    <div class="container mb-5">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <h2 class="mb-4">Layihənin təsviri</h2>
+                <p th:text="${project.description}">
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <h3 class="mb-4">Detallar</h3>
+                <ul class="list-unstyled">
+                    <li><strong>Локация:</strong> —</li>
+                    <li><strong>Дата:</strong> —</li>
+                    <li><strong>Стиль:</strong> —</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Project Description End -->
+
+
+    <!-- Gallery Start -->
+    <div class="container mb-5">
+        <h2 class="mb-4 text-center"></h2>
+        <div class="row g-4">
+            <div th:each="projects : ${project.images}" class="col-md-4">
+                <img class="img-fluid rounded shadow" th:src="${projects.url}" th:alt="${projects.caption}">
+                <p th:text="${projects.caption}"></p>
+            </div>
+
+        </div>
+    </div>
+    <!-- Gallery End -->
+
+
+    <!-- Back to Projects -->
+    <div class="container text-center mb-5">
+        <a th:text="${project.price}"> </a>
+        <a href="/projects" class="btn btn-primary px-5 py-3">← Layihələrə qayıt</a>
+    </div>
+    <!-- Back to Top -->
+    <a href="#!" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+
+</div>
+</body>
+</html>

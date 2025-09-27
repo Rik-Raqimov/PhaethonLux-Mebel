@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="utf-8">
+    <title>PhaethonLux - Interior Design Website Template Free</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <style>
+        .project-item {
+  position: relative;
+  overflow: hidden;
+  border: 10px;
+  aspect-ratio: 1 / 1; /* делаем квадрат */
+}
+
+.project-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* картинка обрезается под квадрат */
+  display: block;
+}
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content" class="bg-white p-0">
+
+    <!-- Hero Start -->
+    <div class="container-fluid pb-5 bg-primary hero-header">
+        <div class="container py-5">
+            <div class="row g-3 align-items-center">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1 class="display-1 mb-0 animated slideInLeft">Layihələr toplusu</h1>
+                </div>
+                <div class="col-lg-6 animated slideInRight">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-end mb-0">
+                            <li class="breadcrumb-item"><a class="text-primary" href="#!">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="#!">Pages</a></li>
+                            <li class="breadcrumb-item text-secondary active" aria-current="page">Projects</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End  -->
+
+
+    <!-- Project Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div  class="row g-0">
+                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="d-flex flex-column justify-content-center bg-primary h-100 p-5">
+                        <h1 class="text-white mb-5">
+                            Ən Yeni<span class="text-uppercase text-primary bg-light d-inline-block px-3 py-1" style="line-height: 1.6;">Mebel və Otaq Layihələri</span>
+                        </h1>
+                        <h4 class="text-white mb-0">
+                            <span class="display-1">5</span> ən son interyer dizaynımız
+                        </h4>
+
+
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="row g-0">
+                        <div th:each="room : ${rooms}" class="col-md-6 col-lg-4 d-flex">
+                            <div class="project-item position-relative overflow-hidden w-100">
+                                <img class="img-fluid w-100 h-100" th:src="${room.iconUrl}" alt="">
+                                <a class="project-overlay text-decoration-none" th:href="@{/portfolios/{roomName}(roomName=${room.roomName})}">
+                                    <h4 th:text="${room.roomName}" class="text-white">Kitchen</h4>
+                                    <small th:text="${room.count} + ' portfolio'" class="text-white"></small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Project End -->
+
+
+    <!-- Back to Top -->
+    <a href="#!" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+
+</div>
+</body>
+</html>
