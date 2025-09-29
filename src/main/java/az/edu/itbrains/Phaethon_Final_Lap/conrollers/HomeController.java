@@ -1,13 +1,11 @@
 package az.edu.itbrains.Phaethon_Final_Lap.conrollers;
 
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.admonition.AdmonitionDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.beforeafter.BeforeAfterDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.category.CategoryDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.service.ServiceDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.service.ServiceInfoDTO;
-import az.edu.itbrains.Phaethon_Final_Lap.service.BeforeAfterService;
-import az.edu.itbrains.Phaethon_Final_Lap.service.CategoryService;
-import az.edu.itbrains.Phaethon_Final_Lap.service.ServiceInfoService;
-import az.edu.itbrains.Phaethon_Final_Lap.service.ServiceService;
+import az.edu.itbrains.Phaethon_Final_Lap.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +21,7 @@ public class HomeController {
     private final CategoryService categoryService;
     private final ServiceInfoService serviceInfoService;
     private final ServiceService serviceService;
+    private final AdmonitionService admonitionService;
 
 
 
@@ -31,6 +30,8 @@ public class HomeController {
         List<BeforeAfterDTO> beforeAfterDTOList = beforeAfterService.getHomeBeforeAfterImage();
         List<ServiceInfoDTO> serviceInfoDTOList = serviceInfoService.getAllServiceInfo();
         List<ServiceDTO> serviceDTOList = serviceService.getAllServices();
+        List<AdmonitionDTO> admonitionDTOList = admonitionService.getAllAdmonitions();
+        model.addAttribute("admonitions", admonitionDTOList);
         model.addAttribute("services", serviceDTOList);
         model.addAttribute("serviceInfos", serviceInfoDTOList);
         model.addAttribute("beforeAfters", beforeAfterDTOList);

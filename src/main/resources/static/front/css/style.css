@@ -462,3 +462,9 @@
     padding-right: 0;
     border-right: none;
 }
+.service-desc p {
+  margin: 0 0 1.5rem;  /* отступ между абзацами */
+}
+.service-desc p:last-child {
+  margin-bottom: 3rem; /* если нужно эквивалент mb-5 */
+}

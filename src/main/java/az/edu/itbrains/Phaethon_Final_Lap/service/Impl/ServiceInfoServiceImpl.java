@@ -17,7 +17,6 @@ import static java.util.Arrays.stream;
 @RequiredArgsConstructor
 public class ServiceInfoServiceImpl implements ServiceInfoService {
     private final ServiceInfoRepository serviceInfoRepository;
-    private final ServiceRepository serviceRepository;
     private final ModelMapper modelMapper;
 
 

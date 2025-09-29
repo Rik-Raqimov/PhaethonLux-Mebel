@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Space+Grotesk&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -29,6 +29,8 @@
 
     <!-- Template Stylesheet -->
     <link href="/front/css/style.css" rel="stylesheet">
+
+
 </head>
 <body>
 <!-- Spinner Start -->
@@ -53,7 +55,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div  class="navbar-nav ms-auto">
-                    <a th:each="category : ${categories}" th:text="${category.name}" th:href="@{'/category/' + ${category.name}}" class="nav-item nav-link active">Home</a>
+                    <a href="/" class="nav-item nav-link active">Home</a>
                     <a href="/about" class="nav-item nav-link">About</a>
                     <a href="/services" class="nav-item nav-link">Services</a>
                     <a href="/portfolios" class="nav-item nav-link">Portfolio</a>

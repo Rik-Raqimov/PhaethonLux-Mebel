@@ -37,38 +37,33 @@
 
     <!-- About Start -->
     <div class="container-fluid py-5">
-        <div class="container">
+        <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-6">
-                    <div th:each="img : ${about}" class="row">
-                        <div  class="col-6 wow fadeIn" data-wow-delay="0.1s">
-                            <div class="image-container">
+                    <div class="row">
+                        <div th:each="img : ${about}" class="col-6 wow fadeIn" data-wow-delay="0.1s">
                             <img class="img-fluid" th:src="${img.imageUrl}" alt="">
-                            </div>
                         </div>
-                        <div class="col-6 wow fadeIn" data-wow-delay="0.3s">
-                            <div class="image-container">
+                        <div  th:each="img : ${about}" class="col-6 wow fadeIn" data-wow-delay="0.3s">
                             <img class="img-fluid h-75" th:src="${img.imageUrl2}" alt="">
-                                <div class="overlay">
-                                <div class="h-25 d-flex align-items-center text-center bg-primary px-4">
-                                <h4 class="text-white lh-base mb-0">1990-cı ildən Mükafat qazanan Studio</h4>
-                                </div>
-                                </div>
+                            <div class="h-25 d-flex align-items-center text-center bg-primary px-4">
+                                <h4 class="text-white lh-base mb-0">Award Winning Studio Since 1990</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div th:each="abouts : ${about}" class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 th:text="${abouts.title}" class="mb-5"><span th:text="${abouts.subtitle}" class="text-uppercase text-primary bg-light px-2">Yaradılış </span> Tariximiz</h1>
+                    <h1 th:text="${abouts.title}" class="mb-5"> of Our
+                        Creation</h1>
                     <p th:text="${abouts.description1}" class="mb-4"></p>
-                    <p th:text="${abouts.description2}" class="mb-5"></p>
                     <div class="row g-3">
-                        <div th:each="points : ${about}" class="col-sm-6">
-                            <h6 th:text="${points.point1}" class="mb-3"><i class="fa fa-check text-primary me-2"></i>30 ildən artıq təcrübə</h6>
-                            <h6 th:text="${points.point2}" class="mb-0"><i class="fa fa-check text-primary me-2"></i>Peşəkar və yaradıcı kollektiv</h6>
+                        <div class="col-sm-6">
+                            <h6 th:text="${abouts.point1}" class="mb-3"><i class="fa fa-check text-primary me-2"></i>Award Winning</h6>
+                            <h6 th:text="${abouts.point2}" class="mb-0"><i class="fa fa-check text-primary me-2"></i>Professional Staff</h6>
                         </div>
-                        <div th:each="points : ${about}" class="col-sm-6">
-                            <h6 th:text="${points.point3}" class="mb-3"><i class="fa fa-check text-primary me-2"></i>Müasir və funksional interyerlər</h6>
-                            <h6 th:text="${points.point4}" class="mb-0"><i class="fa fa-check text-primary me-2"></i>Ədalətli qiymət siyasəti</h6>
+                        <div class="col-sm-6">
+                            <h6 th:text="${abouts.point3}" class="mb-3"><i class="fa fa-check text-primary me-2"></i>24/7 Support</h6>
+                            <h6 th:text="${abouts.point4}" class="mb-0"><i class="fa fa-check text-primary me-2"></i>Fair Prices</h6>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mt-5">
@@ -85,16 +80,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- About End -->
-
-        <!-- Back to Top -->
-        <a href="#!" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-
-
-
     </div>
 </div>
 </body>

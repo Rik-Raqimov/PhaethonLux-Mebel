@@ -109,47 +109,55 @@
           display: none; /* sadəcə vizual elementləri bağladım */
         }
 
-        .service-item {
-    border: 15px;
-    overflow: hidden;            /* чтобы картинка и фон не выходили */
-    padding: 20px;
-    transition: all 0.4s ease;   /* плавный ховер */
 
+
+
+
+
+.service-item {
+    border: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 12px;
+    text-align: center;
+    background: #e6f0ef; /* по умолчанию белый */
+    color: #333;
 }
 
+/* Эффект увеличения при наведении */
 .service-item:hover {
+    transform: scale(1.05);
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-.service-item .service-img {
+/* Картинка */
+.service-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     display: block;
-    margin-bottom: 15px;
-    position: relative;
+    border-radius: 8px;
+    margin-bottom: 12px;
 }
 
-.service-item img {
-    border: 12px;         /* скругление картинки */
-    transition: transform 0.3s ease;
-
+/* Тайтл */
+.service-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
-.service-item:hover img {
-    transform: scale(1.05);      /* картинка увеличивается при наведении */
-}
-.service-item h3{
-    transform: scale(1.2);
-    }
-<!--.service-item h3 {-->
-<!--    font-size: 1.3rem;-->
-<!--    font-weight: 600;-->
-<!--    margin-bottom: 10px;-->
-<!--    color: #333;-->
-<!--}-->
-
-.service-item p {
+/* Описание */
+.service-description {
     font-size: 0.95rem;
-    color: #555;
-    line-height: 1.6;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+/* Зеленый фон */
+.service-item.green-bg {
+    background: #0d6b68;
+    color: #fff;
 }
 
     </style>
@@ -217,50 +225,19 @@
 
 
     <!-- Feature Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="text-center wow fadeIn" data-wow-delay="0.1s">
-                <h1 class="mb-5">İnsanlar <span class="text-uppercase text-primary bg-light px-2">Niyə Bizi Seçir</span>
-                </h1>
-            </div>
-            <div class="row g-5 align-items-center text-center">
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                    <i class="fa fa-calendar-alt fa-5x text-primary mb-4"></i>
-                    <h4>25+ illik təcrübə</h4>
-                    <p class="mb-0">25 ildən artıq təcrübəmizlə yüzlərlə ev və ofisi yeni nəfəs ilə canlandırmışıq.
-                        Təcrübə bizim ən böyük üstünlüyümüzdür.</p>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                    <i class="fa fa-tasks fa-5x text-primary mb-4"></i>
-                    <h4>Ən Yaxşı İnteryer Dizaynı</h4>
-                    <p class="mb-0">Hər layihəmizdə zövq və funksionallığı birləşdirərək,
-                        sadəcə məkan deyil – ilham verən yaşam sahəsi yaradırıq.</p>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                    <i class="fa fa-pencil-ruler fa-5x text-primary mb-4"></i>
-                    <h4>İnnovativ Memarlar</h4>
-                    <p class="mb-0">Komandamız ən son trendləri və yaradıcı yanaşmanı birləşdirərək,
-                        gələcəyin memarlığını bu gün sizə təqdim edir.</p>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                    <i class="fa fa-user fa-5x text-primary mb-4"></i>
-                    <h4>Müştəri Məmnuniyyəti</h4>
-                    <p class="mb-0">Sizin rahatlığınız və xoşbəxtliyiniz bizim üçün hər şeydən önəmlidir. Hər addımda yanınızdayıq.</p>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                    <i class="fa fa-hand-holding-usd fa-5x text-primary mb-4"></i>
-                    <h4>Büdcəyə Uyğun Həllər</h4>
-                    <p class="mb-0">Keyfiyyəti qoruyaraq, hər kəs üçün əlçatan və sərfəli qiymətlərlə xidmət göstəririk.</p>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                    <i class="fa fa-check fa-5x text-primary mb-4"></i>
-                    <h4>Davamlı Materiallar</h4>
-                    <p class="mb-0">Layihələrimizdə yalnız ekoloji təmiz və uzunömürlü materiallardan istifadə edirik.
-                        Təbiəti qorumaq bizim missiyamızdır.</p>
-                </div>
+    <div th:each="admonition : ${admonitions}" class="container">
+        <div class="text-center wow fadeIn" data-wow-delay="0.1s">
+            <h1 th:text="${admonition.title}" class="mb-5"></h1>
+        </div>
+        <div class="row g-5 align-items-center text-center">
+            <div th:each="section : ${admonition.admonitionSections}" class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
+                <i th:class="${section.icon}"></i>
+                <h4 th:text="${section.subtitle}"></h4>
+                <p th:text="${section.description}" class="mb-0"></p>
             </div>
         </div>
     </div>
+
     <!-- Feature End -->
 
 
@@ -271,10 +248,8 @@
                 <div th:each="servicesInfo : ${serviceInfos}" class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
                     <h1 class="mb-5">
                         <span th:text="${servicesInfo.heading}" style="display: inline-block;"></span>
-                        <span th:text="${servicesInfo.subtitle}" class="text-uppercase text-primary bg-light px-2" style="display: inline-block; margin-left: 10px;"></span>
                     </h1>
-                    <p th:text="${servicesInfo.description1}"></p>
-                    <p th:text="${servicesInfo.description2}" class="mb-5"></p>
+                    <p th:utext="${servicesInfo.description1}"></p>
                     <div class="d-flex align-items-center bg-light">
                         <div class="btn-square flex-shrink-0 bg-primary" style="width: 100px; height: 100px;">
                             <i class="fa fa-phone fa-2x text-white"></i>
@@ -286,18 +261,20 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="row g-0">
-                    <div th:each="service : ${services}" class="col-md-6 wow fadeIn" data-wow-delay="0.2s">
-                            <div class="service-item h-100 d-flex flex-column justify-content-center bg-primary">
-                                <a href="#!" class="service-img position-relative mb-4">
-                                    <img class="img-fluid w-100 !h-[200px] img-service" th:src="${service.imageUrl}" alt="">
-                                    <h3 th:text="${service.title}" >Interior Design</h3>
+                    <div class="row g-4">
+                        <div th:each="service, iterStat : ${services}" class="col-md-6 wow fadeIn" data-wow-delay="0.2s">
+                            <div class="service-item h-100" th:classappend="${iterStat.index == 0 || iterStat.index == 3} ? ' green-bg'">
+                                <a href="#!" class="service-img d-block position-relative">
+                                    <img class="img-fluid w-100 service-image" th:src="${service.imageUrl}" alt="">
                                 </a>
-                                <p th:text="${service.description}" class="mb-0"></p>
+                                <h3 th:text="${service.title}" class="service-title text-center">Interior Design</h3>
+                                <p th:text="${service.description}" class="service-description text-center mb-0">Описание услуги...</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -348,8 +325,10 @@
         </div>
     </div>
     <!-- Newsletter End -->
-</div>
 
+
+
+</div>
 <script src="/front/js/main.js"></script>
 </body>
 

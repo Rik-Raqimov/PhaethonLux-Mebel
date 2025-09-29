@@ -5,22 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "about")
-public class About {
+@Table(name = "admonitions")
+public class Admonition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String imageUrl;
-    private String imageUrl2;
     private String title;
-    @Column(length = 8000)
-    private String description1;
-    private String point1;
-    private String point2;
-    private String point3;
-    private String point4;
+
+    @ElementCollection
+    @CollectionTable(name = "admonition_sections", joinColumns = @JoinColumn(name = "admonition_id"))
+    private List<AdmonitionSection> admonitionSections = new ArrayList<>();
+
 }

@@ -13,10 +13,8 @@ public class AboutDTO {
     private Long id;
     private String imageUrl;
     private String imageUrl2;
-    private String subtitle;
     private String title;
     private String description1;
-    private String description2;
     private String point1;
     private String point2;
     private String point3;
