@@ -9,6 +9,34 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
+    <style>
+        .about-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.about-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* делает все фото одинаковыми */
+    border: 8px; /* опционально */
+}
+
+.about-img-text {
+    position: absolute;
+    bottom: 0; /* текст будет снизу на фото */
+    left: 0;
+    width: 100%;
+    background: rgba(0, 123, 255, 0.7); /* полупрозрачный синий фон */
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+    </style>
+
 
 </head>
 
@@ -42,13 +70,17 @@
                 <div class="col-lg-6">
                     <div class="row">
                         <div th:each="img : ${about}" class="col-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="about-img-wrapper">
                             <img class="img-fluid" th:src="${img.imageUrl}" alt="">
                         </div>
+                        </div>
                         <div  th:each="img : ${about}" class="col-6 wow fadeIn" data-wow-delay="0.3s">
+                            <div class="about-img-wrapper">
                             <img class="img-fluid h-75" th:src="${img.imageUrl2}" alt="">
                             <div class="h-25 d-flex align-items-center text-center bg-primary px-4">
                                 <h4 class="text-white lh-base mb-0">Award Winning Studio Since 1990</h4>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -58,12 +90,20 @@
                     <p th:text="${abouts.description1}" class="mb-4"></p>
                     <div class="row g-3">
                         <div class="col-sm-6">
-                            <h6 th:text="${abouts.point1}" class="mb-3"><i class="fa fa-check text-primary me-2"></i>Award Winning</h6>
-                            <h6 th:text="${abouts.point2}" class="mb-0"><i class="fa fa-check text-primary me-2"></i>Professional Staff</h6>
+                            <th:block  th:each="point : ${abouts.points.subList(0, 2)}">
+                                <p class="d-flex align-items-center">
+                                    <i class="fa fa-check text-primary me-2"></i>
+                                    <span th:utext="${point.point}"></span>
+                                </p>
+                            </th:block>
                         </div>
                         <div class="col-sm-6">
-                            <h6 th:text="${abouts.point3}" class="mb-3"><i class="fa fa-check text-primary me-2"></i>24/7 Support</h6>
-                            <h6 th:text="${abouts.point4}" class="mb-0"><i class="fa fa-check text-primary me-2"></i>Fair Prices</h6>
+                            <th:block  th:each="point : ${abouts.points.subList(2, 4)}">
+                                <p class="d-flex align-items-center">
+                                    <i class="fa fa-check text-primary me-2"></i>
+                                    <span th:utext="${point.point}"></span>
+                                </p>
+                            </th:block>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mt-5">

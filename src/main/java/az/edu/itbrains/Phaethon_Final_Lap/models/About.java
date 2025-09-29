@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -19,8 +21,9 @@ public class About {
     private String title;
     @Column(length = 8000)
     private String description1;
-    private String point1;
-    private String point2;
-    private String point3;
-    private String point4;
+
+    @ElementCollection
+    @CollectionTable(name = "about_points", joinColumns = @JoinColumn(name = "about_id"))
+    @Column(name = "point")
+    private List<AboutPoint> points;
 }

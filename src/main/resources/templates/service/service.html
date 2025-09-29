@@ -9,6 +9,54 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
+    <style>
+
+        .service-item {
+            border: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 12px;
+            text-align: center;
+            background: #e6f0ef; /* по умолчанию белый */
+            color: #333;
+        }
+
+        /* Эффект увеличения при наведении */
+        .service-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Картинка */
+        .service-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        /* Тайтл */
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Описание */
+        .service-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* Зеленый фон */
+        .service-item.green-bg {
+            background: #0d6b68;
+            color: #fff;
+        }
+    </style>
 
 </head>
 
@@ -58,19 +106,20 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="row g-0">
-                        <div th:each="service : ${services}" class="col-md-6 wow fadeIn" data-wow-delay="0.2s">
-                            <div class="service-item h-100 d-flex flex-column justify-content-center bg-primary">
-                                <a href="#!" class="service-img position-relative mb-4">
-                                    <img class="img-fluid w-100" th:src="${service.imageUrl}" alt="">
-                                    <h3 th:text="${service.title}" >Interior Design</h3>
+                    <div class="row g-4">
+                        <div th:each="service, iterStat : ${services}" class="col-md-6 wow fadeIn" data-wow-delay="0.2s">
+                            <div class="service-item h-100" th:classappend="${iterStat.index == 0 || iterStat.index == 3} ? ' green-bg'">
+                                <a href="#!" class="service-img d-block position-relative">
+                                    <img class="img-fluid w-100 service-image" th:src="${service.imageUrl}" alt="">
                                 </a>
-                                <p th:text="${service.description}" class="mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
-                                    stet diam sed stet lorem.</p>
+                                <h3 th:text="${service.title}" class="service-title text-center">Interior Design</h3>
+                                <p th:text="${service.description}" class="service-description text-center mb-0">Описание услуги...</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

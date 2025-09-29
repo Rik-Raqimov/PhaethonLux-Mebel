@@ -1,9 +1,12 @@
 package az.edu.itbrains.Phaethon_Final_Lap.DTOs.about;
 
+import az.edu.itbrains.Phaethon_Final_Lap.models.AboutPoint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,8 +18,5 @@ public class AboutDTO {
     private String imageUrl2;
     private String title;
     private String description1;
-    private String point1;
-    private String point2;
-    private String point3;
-    private String point4;
+    private List<AboutPoint> points;
 }
