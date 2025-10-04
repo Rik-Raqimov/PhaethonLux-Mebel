@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface ProjectService {
     ProjectDTO findById(Long id);
-
-
     List<ProjectFeaturedDTO> findAllByRoomName(String roomName);
 
 }

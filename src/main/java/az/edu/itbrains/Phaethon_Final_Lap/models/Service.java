@@ -7,6 +7,9 @@ import jakarta.persistence.Id;
 import lombok.*;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -19,4 +22,11 @@ public class Service {
     private String title;
     private String description;
     private String imageUrl;
+
+
+    @OneToMany(mappedBy = "service")
+    private List<DeliveryService> deliveryServices = new ArrayList<>();
+
+    @OneToMany(mappedBy = "service")
+    private List<ServiceInfo> serviceInfos = new ArrayList<>();
 }

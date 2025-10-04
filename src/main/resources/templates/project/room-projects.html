@@ -44,7 +44,7 @@
                     <img th:src="${project.imageUrl}" th:alt="${project.title}">
                     <div class="card-body">
                         <h5 th:text="${project.title}"></h5>
-                        <p th:text="${project.price}"> </p>
+                        <p th:text="${project.price}"></p>
                         <a class="btn btn-outline-primary"
                            th:href="@{/detail/{id}(id=${project.id})}">
                             Daha ətraflı

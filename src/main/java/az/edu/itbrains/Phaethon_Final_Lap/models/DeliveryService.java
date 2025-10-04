@@ -7,22 +7,22 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "service_info")
-public class ServiceInfo {
+@AllArgsConstructor
+@Table(name = "delivery_service")
+public class DeliveryService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String heading;
-    @Column(length = 6000)
-    private String description1;
-    private String phoneNumber;
-    private String phoneText;
+    @Column(nullable = false)
+    private String title;
 
+    @Column(length = 300)
+    private String description;
 
+    @Column(nullable = false)
+    private String iconUrl;
 
     @ManyToOne
-    @JoinColumn(name = "service_id")
     private Service service;
 }
