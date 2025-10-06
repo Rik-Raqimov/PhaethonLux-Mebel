@@ -29,4 +29,7 @@ public class Service {
 
     @OneToMany(mappedBy = "service")
     private List<ServiceInfo> serviceInfos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "service")
+    private List<Consultation> consultations = new ArrayList<>();
 }

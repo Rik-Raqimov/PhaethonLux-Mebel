@@ -111,6 +111,8 @@
                             <div class="service-item h-100" th:classappend="${iterStat.index == 0 || iterStat.index == 3} ? ' green-bg'">
                                 <a class="service-img d-block position-relative"
                                    th:href="@{/service/detail/{id}(id=${service.id})}">
+                                    <a class="service-img d-block position-relative"
+                                       th:href="@{/service/consultation/{id}(id=${service.id})}">
                                     <img class="img-fluid w-100 service-image" th:src="${service.imageUrl}" alt="">
                                 </a>
                                 <h3 th:text="${service.title}" class="service-title text-center">Interior Design</h3>
