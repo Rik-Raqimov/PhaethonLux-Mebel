@@ -13,5 +13,4 @@ public class ProjectFeaturedDTO {
     private Long id;
     private String title;
     private String imageUrl;
-    private double price;
 }

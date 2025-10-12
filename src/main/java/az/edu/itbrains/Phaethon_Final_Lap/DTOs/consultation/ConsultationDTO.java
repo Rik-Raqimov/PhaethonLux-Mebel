@@ -12,6 +12,7 @@ import lombok.Setter;
 public class ConsultationDTO {
     private Long id;
     private String name;
+    private String imageUrl;
     private String role;
     private String phoneNumber;
 

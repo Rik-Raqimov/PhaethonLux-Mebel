@@ -1,58 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layout}">
 
 <head>
     <meta charset="utf-8">
     <title>Project Detail - iSTUDIO</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-    <script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script>
 
+    <style>
+        .project-gallery img {
+     width: 100%;
+     height: 360px;
+     object-fit: cover;
+     border-radius: 0; /* убираем скругления */
+     background-color: transparent;
+     border: none; /* убираем бордер */
+     padding: 0; /* убираем внутренние отступы */
+     margin-bottom: 12px;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     box-shadow: none; /* убираем тень */
+ }
+
+ .project-gallery img:hover {
+     transform: scale(1.02); /* лёгкое увеличение при наведении */
+     box-shadow: none; /* без тени */
+ }
+
+ .project-gallery p {
+     font-size: 1rem;
+     color: #333;
+     margin-top: 10px;
+     padding: 0; /* без паддинга */
+     background-color: transparent; /* без фона */
+     border: none; /* без бордера */
+     box-shadow: none; /* без тени */
+     text-align: center;
+     font-family: "Helvetica Neue", Arial, sans-serif;
+     letter-spacing: 0.2px;
+ }
+
+ .project-gallery {
+     display: flex;
+     flex-direction: column;
+     gap: 40px;
+ }
+
+    </style>
 </head>
-<style>
-    .container-mozayka {
-  width: 280px;
-  height: 500px;
-  background-color: antiquewhite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-}
-
-.project-gallery { height: 200px; }
-</style>
 
 <body>
 <div layout:fragment="content" class="bg-white p-0">
 
-    <!-- Hero Start -->
+    <!-- Hero -->
     <div class="container-fluid bg-light py-5 mb-5">
-        <div  class="container text-center">
+        <div class="container text-center">
             <h1 class="display-4 text-dark mb-3" th:text="${project.title}">Название проекта</h1>
         </div>
     </div>
-    <!-- Hero End -->
 
-
-    <!-- Project Main Image -->
-    <div class="container mb-5">
-        <div class="text-center">
-            <img class="img-fluid rounded shadow" th:src="${project.imageUrl}" alt="Project Image">
-        </div>
+    <!-- Main image -->
+    <div class="container mb-5 text-center">
+        <img class="img-fluid rounded shadow" th:src="${project.imageUrl}" alt="Project Image">
     </div>
-    <!-- Project Main Image End -->
 
-
-    <!-- Project Description -->
+    <!-- Description -->
     <div class="container mb-5">
         <div class="row g-5">
             <div class="col-lg-8">
                 <h2 class="mb-4">Layihənin təsviri</h2>
-                <p th:text="${project.description}">
-                </p>
+                <p th:text="${project.description}"></p>
             </div>
             <div class="col-lg-4">
                 <h3 class="mb-4">Detallar</h3>
@@ -64,44 +81,30 @@
             </div>
         </div>
     </div>
-    <!-- Project Description End -->
 
-
-    <!-- Gallery Start -->
+    <!-- Gallery -->
     <div class="container mb-5">
-        <h2 class="mb-4 text-center"></h2>
         <div class="project-gallery">
-            <div th:each="projects : ${project.images}" class="col-md-4">
-                <img class="img-fluid rounded shadow" th:src="${projects.url}" th:alt="${projects.caption}">
-                <p th:text="${projects.caption}"></p>
+            <div th:each="img, iterStat : ${project.images}" class="row align-items-center">
+                <div th:class="${iterStat.index % 2 == 0} ? 'col-md-6' : 'col-md-6 order-md-2'">
+                    <img th:src="${img.url}" th:alt="${img.caption}">
+                </div>
+                <div th:class="${iterStat.index % 2 == 0} ? 'col-md-6' : 'col-md-6 order-md-1'">
+                    <p th:text="${img.caption}" class="fs-5"></p>
+                </div>
             </div>
-
         </div>
     </div>
-    <!-- Gallery End -->
 
-
-    <!-- Back to Projects -->
+    <!-- Back -->
     <div class="container text-center mb-5">
-        <a th:text="${project.price}"> </a>
-        <a href="/projects" class="btn btn-primary px-5 py-3">← Layihələrə qayıt</a>
+        <a href="/portfolios" class="btn btn-primary px-5 py-3">← Layihələrə qayıt</a>
     </div>
-    <!-- Back to Top -->
-    <a href="#!" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-
+    <a href="#!" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+        <i class="bi bi-arrow-up"></i>
+    </a>
 
 </div>
-<script>
-    let magicGrid = new MagicGrid({
-  container: '.container',
-  animate: true,
-  gutter: 30,
-  static: true,
-  useMin: true
-});
-
-magicGrid.listen();
-</script>
 </body>
 </html>

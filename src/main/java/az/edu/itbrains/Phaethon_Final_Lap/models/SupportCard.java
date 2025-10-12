@@ -5,26 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "consultations")
-public class Consultation {
-
+@NoArgsConstructor
+@Table(name = "support_cards")
+public class SupportCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String imageUrl;
-    private String role;
-    private String phoneNumber;
-
-    @OneToMany(mappedBy = "consultation")
-    private List<Booking> bookings;
+    private String title;
+    private String description;
+    private String iconUrl;
 
     @ManyToOne
     private Service service;
+
 }

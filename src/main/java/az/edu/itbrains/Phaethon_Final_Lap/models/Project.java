@@ -23,7 +23,6 @@ public class Project {
     @Column(columnDefinition = "TEXT")
     private String description;
     private String imageUrl;
-    private double price;
 
     @ElementCollection
     @CollectionTable(name = "project_images", joinColumns = @JoinColumn(name = "project_id"))

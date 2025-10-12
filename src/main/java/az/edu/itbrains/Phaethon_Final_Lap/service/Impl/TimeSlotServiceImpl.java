@@ -1,6 +1,6 @@
 package az.edu.itbrains.Phaethon_Final_Lap.service.Impl;
 
-import az.edu.itbrains.Phaethon_Final_Lap.DTOs.TimeSlot.TimeSlotDTO;
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.timeSlot.TimeSlotDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.models.Booking;
 import az.edu.itbrains.Phaethon_Final_Lap.models.Consultation;
 import az.edu.itbrains.Phaethon_Final_Lap.models.TimeSlot;
@@ -35,12 +35,15 @@ public class TimeSlotServiceImpl implements TimeSlotService {
     @Transactional(readOnly = true) // Только чтение, без изменений в базе
     public List<TimeSlotDTO> getSlotsForWeek(LocalDate dateInWeek) {
 
+
+
         // 1. Вычисляем начало и конец недели (с Понедельника по Воскресенье)
         LocalDate startOfWeek = dateInWeek.with(DayOfWeek.MONDAY);
         LocalDate endOfWeek = dateInWeek.with(DayOfWeek.SUNDAY);
 
         // 2. Запрашиваем данные из базы, отсортированные по дате и времени
         List<TimeSlot> slots = timeSlotRepository.findBySlotDateBetweenOrderBySlotDateAscStartTimeAsc(
+
                 startOfWeek,
                 endOfWeek
         );
@@ -66,7 +69,7 @@ public class TimeSlotServiceImpl implements TimeSlotService {
 
         // 1. Находим TimeSlot
         TimeSlot slot = timeSlotRepository.findById(slotId)
-                .orElseThrow(() -> new RuntimeException("Слот с ID " + slotId + " не найден."));
+                .orElseThrow(() -> new RuntimeException( slotId + " не найден."));
 
         // 2. Проверка статуса (Критический шаг!)
         if (slot.isBooked()) {
@@ -90,7 +93,6 @@ public class TimeSlotServiceImpl implements TimeSlotService {
         newBooking.setClient(user);
         newBooking.setSlot(slot);
         newBooking.setCreatedAt(LocalDateTime.now()); // добавить поле в Booking, если нужно
-        bookingRepository.save(newBooking);
         bookingRepository.save(newBooking);
 
         // 5. Обновляем статус TimeSlot

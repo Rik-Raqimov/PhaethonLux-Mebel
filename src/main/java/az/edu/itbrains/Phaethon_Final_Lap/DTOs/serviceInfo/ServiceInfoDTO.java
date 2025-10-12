@@ -1,4 +1,4 @@
-package az.edu.itbrains.Phaethon_Final_Lap.DTOs.service;
+package az.edu.itbrains.Phaethon_Final_Lap.DTOs.serviceInfo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

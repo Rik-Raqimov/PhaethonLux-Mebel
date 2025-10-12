@@ -18,6 +18,6 @@ public class AboutController {
     public String about(Model model){
         List<AboutDTO> aboutDTOS = aboutService.getAllAbout();
         model.addAttribute("about", aboutDTOS);
-        return "about/about.html";
+        return "about.html";
     }
 }

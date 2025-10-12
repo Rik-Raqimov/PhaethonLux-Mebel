@@ -12,57 +12,31 @@
     </style>
 </head>
 <body>
-<div class="container py-5">
 
-    <!-- Заголовок -->
-    <div class="text-center mb-5">
-        <h1 class="display-5 fw-bold">Konsultasiya üçün qeydiyyatdan keçin</h1>
-        <p class="lead text-muted">Görüş sifariş etmək üçün məsləhətçi, tarix və vaxt seçin.</p>
-    </div>
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Məsləhətləşmə üçün mütəxəssislər</h2>
 
-    <!-- 1️⃣ Консультанты -->
-    <div class="row mb-5">
-        <div th:each="consultant : ${consultations}" class="col-md-4 mb-4">
-            <div class="card card-consultant h-100 text-center p-3 shadow-sm">
-                <img src="/img/consultant1.jpg" class="card-img-top rounded-circle mx-auto d-block" style="width:150px; height:150px; object-fit:cover;" alt="Consultant">
-                <div class="card-body">
-                    <h5 th:text="${consultant.name}" class="card-title">Linda</h5>
-                    <p th:text="${consultant.role}" class="card-text">Baş Dizayner</p>
-                    <p class="card-text"><strong>Telefon:</strong> <span th:text="${consultant.phoneNumber}">+994 50 123 45 67</span></p>
-
-                    <!-- Форма выбора консультанта -->
-                    <form th:action="@{/service/consultation/{id}(id=${consultant.id})}" method="get">
+        <div class="row mb-5">
+            <div th:each="consultant : ${consultations}" class="col-md-4 mb-4">
+                <div class="card card-consultant h-100 text-center p-3 shadow-sm">
+                    <img th:src="${consultant.imageUrl}" class="card-img-top rounded-circle mx-auto d-block"
+                         style="width:150px; height:150px; object-fit:cover;" alt="Consultant">
+                    <div class="card-body">
+                        <h5 th:text="${consultant.name}" class="card-title">Linda</h5>
+                        <p th:text="${consultant.role}" class="card-text">Baş Dizayner</p>
+                        <p class="card-text"><strong>Telefon:</strong>
+                            <span th:text="${consultant.phoneNumber}">+994 50 123 45 67</span>
+                        </p>
+                    <!-- Кнопка "Seç" ведёт на страницу конкретного консультанта -->
+                    <form th:action="'/services/meslehetlesme/'+${consultant.id}" method="get">
                         <button type="submit" class="btn btn-primary">Seç</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- 2️⃣ Даты и слоты (показываются после выбора консультанта) -->
-    <div th:if="${timeSlots != null}" class="mb-5">
-
-        <!-- Выбор даты -->
-        <h4 class="mb-3 text-center">Uyğun günü seçin</h4>
-        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
-            <form th:each="slot : ${timeSlots}" th:action="@{/service/booking}" method="get">
-                <input type="hidden" th:name="date" th:value="${slot.slotDate}"/>
-                <button type="submit" class="btn btn-outline-primary" th:text="${#dates.format(slot.slotDate, 'dd.MM')}"></button>
-            </form>
-        </div>
-
-        <!-- Выбор слота времени -->
-        <h4 class="mb-3 text-center">Uyğun vaxtı seçin</h4>
-        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
-            <form th:each="slot : ${timeSlots}" th:action="@{/service/book/{slotId}/{userId}/{consultationId}(slotId=${slot.id}, userId=${1}, consultationId=${slot.consultationId})}" method="post">
-                <button type="submit" class="btn"
-                        th:classappend="${slot.isBooked} ? ' btn-outline-secondary disabled' : ' btn-outline-success'"
-                        th:text="${slot.startTime} + ' - ' + ${slot.endTime}">
-                </button>
-            </form>
-        </div>
-
     </div>
+
 
 </div>
 </body>

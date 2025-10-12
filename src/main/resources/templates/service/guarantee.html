@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="utf-8">
+    <title>PhaethonLux - Interior Design Website Template Free</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+
+</head>
+
+<body>
+<div layout:fragment="content" class="bg-white p-0">
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Zəmanət və dəstək</h2>
+            <p class="lead text-muted">Biz müştərilərimizə qayğı göstəririk və tam xidmət göstəririk.</p>
+        </div>
+
+        <div class="row g-4">
+            <div th:each="supportCard : ${supportCards}" class="col-md-3">
+                <div class="service-card text-center p-4 border rounded shadow-sm h-100">
+                    <img th:src="${supportCard.iconUrl}" alt="Icon" class="mb-3">
+                    <h5 th:text="${supportCard.title}" class="fw-bold mb-2"></h5>
+                    <p th:text="${supportCard.description}"></p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</body>
+</html>

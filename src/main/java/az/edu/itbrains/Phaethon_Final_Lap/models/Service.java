@@ -19,6 +19,7 @@ public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String seoUrl;
     private String title;
     private String description;
     private String imageUrl;
@@ -32,4 +33,7 @@ public class Service {
 
     @OneToMany(mappedBy = "service")
     private List<Consultation> consultations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "service")
+    private List<SupportCard> supportCards = new ArrayList<>();
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static java.util.Arrays.stream;
 
 @Service
 @RequiredArgsConstructor
@@ -18,10 +17,17 @@ public class ConsultationServiceImpl implements ConsultationService {
     private final ModelMapper modelMapper;
 
     @Override
-    public List<ConsultationDTO> findById(Long id) {
-        return consultationRepository.findBgetAllConsultationsByServiceIdyId(id)
+    public List<ConsultationDTO> getAllConsultationsByServiceId(Long id) {
+        return consultationRepository.findAllByService_Id(id)
                 .stream()
                 .map(consultation -> modelMapper.map(consultation, ConsultationDTO.class))
                 .toList();
+    }
+
+    @Override
+    public ConsultationDTO findById(Long id) {
+        return consultationRepository.findById(id)
+                .map(consultation -> modelMapper.map(consultation, ConsultationDTO.class))
+                .orElseThrow(() -> new RuntimeException("Məsləhətləşmə konsultanti tapılmadı: " + id));
     }
 }

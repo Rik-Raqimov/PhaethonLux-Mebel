@@ -16,8 +16,8 @@ public class TeamMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String surname;
+    private String fullName;
+    private String photoUrl;
     private String profession;
     private String instagramLink;
     private String facebookLink;

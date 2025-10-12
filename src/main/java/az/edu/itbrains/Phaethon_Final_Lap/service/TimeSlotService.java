@@ -1,6 +1,6 @@
 package az.edu.itbrains.Phaethon_Final_Lap.service;
 
-import az.edu.itbrains.Phaethon_Final_Lap.DTOs.TimeSlot.TimeSlotDTO;
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.timeSlot.TimeSlotDTO;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -5,26 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "consultations")
-public class Consultation {
-
+@Table(name = "our_services")
+public class OurServices {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    @Column(nullable = false)
+    private String title;
+    @Column(length = 300)
+    private String description;
+    @Column(nullable = false)
     private String imageUrl;
-    private String role;
-    private String phoneNumber;
-
-    @OneToMany(mappedBy = "consultation")
-    private List<Booking> bookings;
-
-    @ManyToOne
-    private Service service;
+    private double price;
 }

@@ -4,7 +4,7 @@ import az.edu.itbrains.Phaethon_Final_Lap.DTOs.admonition.AdmonitionDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.beforeafter.BeforeAfterDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.category.CategoryDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.service.ServiceDTO;
-import az.edu.itbrains.Phaethon_Final_Lap.DTOs.service.ServiceInfoDTO;
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.serviceInfo.ServiceInfoDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -38,7 +38,7 @@ public class HomeController {
         return "index.html";
 
     }
-    @GetMapping("/category/{categoryName}")
+    @GetMapping("/{categoryName}")
     public String index2( @PathVariable String categoryName,Model model){
         List<CategoryDTO> categoryDTOList = categoryService.getAllCategories(categoryName);
         model.addAttribute("categories", categoryDTOList);

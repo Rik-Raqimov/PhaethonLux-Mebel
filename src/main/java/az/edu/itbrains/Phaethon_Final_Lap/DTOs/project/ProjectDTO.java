@@ -18,5 +18,4 @@ public class ProjectDTO {
     private String description;
     private String imageUrl;
     private List<ImageData> images;
-    private double price;
 }

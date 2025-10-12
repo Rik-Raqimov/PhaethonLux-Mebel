@@ -1,9 +1,7 @@
 package az.edu.itbrains.Phaethon_Final_Lap.service.Impl;
 
-import az.edu.itbrains.Phaethon_Final_Lap.DTOs.service.ServiceDTO;
-import az.edu.itbrains.Phaethon_Final_Lap.DTOs.service.ServiceInfoDTO;
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.serviceInfo.ServiceInfoDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.repositories.ServiceInfoRepository;
-import az.edu.itbrains.Phaethon_Final_Lap.repositories.ServiceRepository;
 import az.edu.itbrains.Phaethon_Final_Lap.service.ServiceInfoService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

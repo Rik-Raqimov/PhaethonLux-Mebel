@@ -1,13 +1,15 @@
-package az.edu.itbrains.Phaethon_Final_Lap.DTOs.service;
+package az.edu.itbrains.Phaethon_Final_Lap.DTOs.supportCard;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeliveryDetailDTO {
+public class SupportCardDTO {
     private Long id;
     private String title;
     private String description;

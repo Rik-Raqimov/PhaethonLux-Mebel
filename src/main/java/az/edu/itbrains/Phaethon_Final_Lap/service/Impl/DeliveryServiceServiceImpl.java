@@ -1,6 +1,6 @@
 package az.edu.itbrains.Phaethon_Final_Lap.service.Impl;
 
-import az.edu.itbrains.Phaethon_Final_Lap.DTOs.service.DeliveryDetailDTO;
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.deliveryService.DeliveryDetailDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.repositories.DeliveryServiceRepository;
 import az.edu.itbrains.Phaethon_Final_Lap.service.DeliveryServiceService;
 import lombok.RequiredArgsConstructor;

@@ -12,6 +12,7 @@ import lombok.Setter;
 public class ServiceDTO {
     private Long id;
     private String title;
+    private String seoUrl;
     private String description;
     private String imageUrl;
 }

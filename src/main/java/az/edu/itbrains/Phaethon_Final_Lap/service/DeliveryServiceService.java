@@ -1,6 +1,6 @@
 package az.edu.itbrains.Phaethon_Final_Lap.service;
 
-import az.edu.itbrains.Phaethon_Final_Lap.DTOs.service.DeliveryDetailDTO;
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.deliveryService.DeliveryDetailDTO;
 
 import java.util.List;
 

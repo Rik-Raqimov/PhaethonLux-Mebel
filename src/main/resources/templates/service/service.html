@@ -110,9 +110,7 @@
                         <div th:each="service, iterStat : ${services}" class="col-md-6 wow fadeIn" data-wow-delay="0.2s">
                             <div class="service-item h-100" th:classappend="${iterStat.index == 0 || iterStat.index == 3} ? ' green-bg'">
                                 <a class="service-img d-block position-relative"
-                                   th:href="@{/service/detail/{id}(id=${service.id})}">
-                                    <a class="service-img d-block position-relative"
-                                       th:href="@{/service/consultation/{id}(id=${service.id})}">
+                                   th:href="'/services/'+${service.seoUrl}">
                                     <img class="img-fluid w-100 service-image" th:src="${service.imageUrl}" alt="">
                                 </a>
                                 <h3 th:text="${service.title}" class="service-title text-center">Interior Design</h3>
@@ -130,8 +128,6 @@
 
     <!-- Back to Top -->
     <a href="#!" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
 
 
 

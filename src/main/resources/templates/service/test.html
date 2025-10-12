@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Flatpickr Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body style="padding: 50px;">
+
+<h3>Test Təqvimi</h3>
+<div id="calendar"></div>
+<div id="timeSlots" style="margin-top:20px;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("✅ DOMContentLoaded fired");
+
+        const calendarEl = document.getElementById("calendar");
+        if (!calendarEl) {
+            console.error("❌ #calendar tapılmadı!");
+            return;
+        }
+
+        flatpickr(calendarEl, {
+            inline: true,
+            dateFormat: "Y-m-d",
+            onReady: () => console.log("✅ Flatpickr yaradıldı"),
+            onChange: (selectedDates, dateStr) => generateTimeSlots(dateStr)
+        });
+    });
+
+    function generateTimeSlots(dateStr) {
+        const div = document.getElementById("timeSlots");
+        div.innerHTML = "";
+        const times = ["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];
+        const title = document.createElement("h4");
+        title.textContent = `${dateStr} üçün vaxt seç:`;
+        div.appendChild(title);
+
+        times.forEach(time => {
+            const btn = document.createElement("button");
+            btn.textContent = time;
+            btn.style.margin = "4px";
+            btn.onclick = () => console.log(`🕒 Seçildi: ${dateStr} ${time}`);
+            div.appendChild(btn);
+        });
+    }
+</script>
+
+</body>
+</html>

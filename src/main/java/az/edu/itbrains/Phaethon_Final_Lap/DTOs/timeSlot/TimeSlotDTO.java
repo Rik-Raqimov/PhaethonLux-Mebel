@@ -1,4 +1,4 @@
-package az.edu.itbrains.Phaethon_Final_Lap.DTOs.TimeSlot;
+package az.edu.itbrains.Phaethon_Final_Lap.DTOs.timeSlot;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

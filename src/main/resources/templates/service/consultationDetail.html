@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="utf-8">
+    <title>PhaethonLux - Interior Design Website Template Free</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
+
+    <style>
+        .calendar-widget {
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        #timeSlots button {
+            min-width: 80px;
+        }
+        #timeSlots button.active {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+        .consultant-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .consultant-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        #calendar {
+    max-width: 100%;
+    height: 500px; /* обязательно укажи высоту! */
+    margin: 0 auto;
+}
+
+
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content" class="bg-white p-0">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold">Konsultasiya üçün qeydiyyatdan keçin</h1>
+            <p class="lead text-muted">Görüş sifariş etmək üçün məsləhətçi, tarix və vaxt seçin.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Левая колонка: консультант -->
+            <div class="col-md-5">
+                <div class="consultant-card">
+                    <img th:src="${consultation.imageUrl}" alt="Consultant">
+                    <h4 th:text="${consultation.name}" class="fw-bold mb-1"></h4>
+                    <p th:text="${consultation.role}" class="text-muted mb-2"></p>
+                    <p><i class="fa fa-phone me-2"></i><span th:text="${consultation.phoneNumber}"></span></p>
+                    <p class="small text-secondary">
+                        Biz sizə daha ətraflı məlumat vermək və suallarınızı cavablandırmaq üçün qısa bir görüş təyin edəcəyik.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Правая колонка: календарь и слоты -->
+            <div class="col-md-7">
+                <div class="calendar-widget">
+                    <h5 class="fw-bold mb-3">Tarix və vaxt seçin</h5>
+                    <div id="container">
+                        <div id="calendar"></div>
+                        <div id="timeSlots"></div>
+                    </div>
+
+
+                    <!-- Информация о выбранном слоте -->
+                    <div th:if="${bookedSlot != null}">
+                        <p><strong>Seçilmiş tarix və vaxt:</strong> <span th:text="${bookedSlot.time}">[Vaxt burada]</span></p>
+                        <p><strong>Servis:</strong> <span th:text="${bookedSlot.serviceName}">[Servis burada]</span></p>
+                        <p><strong>Müştəri ID:</strong> <span th:text="${bookedSlot.userId}">[User ID]</span></p>
+                    </div>
+
+                    <!-- Slot ID -->
+                    <div th:if="${slotId != null}">
+                        <p><strong>Slot ID:</strong> <span th:text="${slotId}">[Slot ID burada]</span></p>
+                    </div>
+
+                    <button id="bookBtn" class="btn btn-primary w-100">Sifarişi təsdiqlə</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'az',
+            height: 400,
+            dateClick: function(info) {
+                alert("Вы выбрали дату: " + info.dateStr);
+            }
+        });
+        calendar.render();
+    });
+</script>
+</body>
+</html>

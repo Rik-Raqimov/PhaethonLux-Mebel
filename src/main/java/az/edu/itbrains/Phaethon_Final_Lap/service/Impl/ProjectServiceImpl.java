@@ -27,8 +27,7 @@ public class ProjectServiceImpl implements ProjectService {
                 projects.getTitle(),
                 projects.getDescription(),
                 projects.getImageUrl(),
-                projects.getImages(),
-                projects.getPrice()
+                projects.getImages()
         );
     }
 

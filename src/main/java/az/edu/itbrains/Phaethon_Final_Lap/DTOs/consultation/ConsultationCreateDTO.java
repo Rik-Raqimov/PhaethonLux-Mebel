@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ConsultationCreateDTO {
     private String name;
+    private String imageUrl;
     private String role;
     private String phoneNumber;
 
