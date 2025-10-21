@@ -12,16 +12,17 @@ import java.time.LocalTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "time_slots")
-public class TimeSlot {
+@Table(name = "coupons")
+public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String code;
     @Column(nullable = false)
-    private LocalDate slotDate;
+    private Double discount;
     @Column(nullable = false)
     private LocalTime startTime;
-    @Column(nullable = false)  // время начала
-    private boolean isBooked;     // занят или свободен
+    @Column(nullable = false)
+    private LocalTime endTime;
+    private Boolean active = true;
 }
-

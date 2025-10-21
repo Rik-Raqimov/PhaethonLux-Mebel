@@ -1,13 +1,11 @@
 package az.edu.itbrains.Phaethon_Final_Lap.models;
 
-import lombok.Data;
-
 import jakarta.persistence.Embeddable;
+import lombok.Data;
 
 @Data
 @Embeddable
-public class ImageData {
-    private String url;
-    private String caption;
+public class ProductImageData {
+    private String imageUrl;
     private Integer sortOrder;
 }

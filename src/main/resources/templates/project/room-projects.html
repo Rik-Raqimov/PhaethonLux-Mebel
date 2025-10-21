@@ -45,7 +45,7 @@
                     <div class="card-body">
                         <h5 th:text="${project.title}"></h5>
                         <a class="btn btn-outline-primary"
-                           th:href="@{/detail/{id}(id=${project.id})}">
+                           th:href="'/detail/'+${project.id}">
                             Daha ətraflı
                         </a>
                     </div>

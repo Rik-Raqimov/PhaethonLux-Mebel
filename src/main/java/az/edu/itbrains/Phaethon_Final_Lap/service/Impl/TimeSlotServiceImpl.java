@@ -4,11 +4,11 @@ import az.edu.itbrains.Phaethon_Final_Lap.DTOs.timeSlot.TimeSlotDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.models.Booking;
 import az.edu.itbrains.Phaethon_Final_Lap.models.Consultation;
 import az.edu.itbrains.Phaethon_Final_Lap.models.TimeSlot;
-import az.edu.itbrains.Phaethon_Final_Lap.models.Users;
+import az.edu.itbrains.Phaethon_Final_Lap.models.User;
 import az.edu.itbrains.Phaethon_Final_Lap.repositories.BookingRepository;
 import az.edu.itbrains.Phaethon_Final_Lap.repositories.ConsultationRepository;
 import az.edu.itbrains.Phaethon_Final_Lap.repositories.TimeSlotRepository;
-import az.edu.itbrains.Phaethon_Final_Lap.repositories.UsersRepository;
+import az.edu.itbrains.Phaethon_Final_Lap.repositories.UserRepository;
 import az.edu.itbrains.Phaethon_Final_Lap.service.TimeSlotService;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class TimeSlotServiceImpl implements TimeSlotService {
     private final ConsultationRepository consultationRepository;
     private final TimeSlotRepository timeSlotRepository;
     private final BookingRepository bookingRepository;
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
 
@@ -77,7 +77,7 @@ public class TimeSlotServiceImpl implements TimeSlotService {
         }
 
         // 3. Находим Пользователя и Услугу (предполагаем, что они существуют)
-        Users user = usersRepository.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Пользователь не найден."));
 
         // Если у вас нет Consultation, удалите эту строку и используйте NULL или заглушку.

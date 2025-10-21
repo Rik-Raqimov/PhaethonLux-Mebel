@@ -5,20 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "our_services")
-public class OurServices {
+@NoArgsConstructor
+@Table(name = "categories_for_products")
+public class CategoryForProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String title;
-    @Column(length = 300)
-    private String description;
-    @Column(nullable = false)
-    private String imageUrl;
-    private double price;
+    private String name;
+
+    @OneToMany(mappedBy = "categoryForProduct")
+    private List<Product> products = new ArrayList<>();
 }

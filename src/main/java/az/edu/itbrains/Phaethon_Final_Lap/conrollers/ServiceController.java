@@ -1,6 +1,8 @@
 package az.edu.itbrains.Phaethon_Final_Lap.conrollers;
 
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.categoryForProduct.CategoryForProductDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.consultation.ConsultationDTO;
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.product.ProductDetailDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.service.ServiceDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.deliveryService.DeliveryDetailDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.serviceInfo.ServiceInfoDTO;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +26,8 @@ public class ServiceController {
     private final ConsultationService consultationService;
     private final DeliveryServiceService deliveryServiceService;
     private final ServiceService serviceService;
+    private final CategoryForProductService categoryForProductService;
+    private final ProductService productService;
     private final SupportCardService supportCardService;
     private final TimeSlotService timeSlotService;
     private final ServiceInfoService serviceInfoService;
@@ -77,11 +82,30 @@ public class ServiceController {
     //TODO: MESLEHETLESME SERVICE END
 
 
-
+    //TODO: zemanet-ve-destek SERVICE START
     @GetMapping("/services/zemanet-ve-destek")
     public String serviceGuarantee(Model model) {
        List<SupportCardDTO> serviceInfoDTOList = supportCardService.findById(2L);
         model.addAttribute("supportCards", serviceInfoDTOList);
         return "service/guarantee.html";
+    }
+    //TODO: zemanet-ve-destek SERVICE END
+
+
+    @GetMapping("/services/sifaris-et-ve-al")
+    public String serviceOrderAndBuy(@RequestParam(required = false) Long categoryId, Model model) {
+        List<CategoryForProductDTO> categoryForProductDTOS = categoryForProductService.getAllCategoryForProduct();
+        List<ProductDetailDTO> productDetailDTOS = productService.getFilteredProducts(categoryId);
+        model.addAttribute("products", productDetailDTOS);
+        model.addAttribute("categories", categoryForProductDTOS);
+        model.addAttribute("selectedCategoryId", categoryId);
+        return "service/orderAndBuy.html";
+    }
+
+    @GetMapping("/services/sifaris-et-ve-al/detail/{id}")
+    public String productDetailPage(@PathVariable Long id, Model model) {
+        ProductDetailDTO productDetailDTO = productService.getProductById(id);
+        model.addAttribute("product", productDetailDTO);
+        return "service/orderAndBuyDetail.html";
     }
 }

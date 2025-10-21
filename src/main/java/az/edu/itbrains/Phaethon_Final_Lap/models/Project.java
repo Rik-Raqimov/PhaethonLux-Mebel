@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "projects")
 public class Project {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,10 +25,11 @@ public class Project {
     private String description;
     private String imageUrl;
 
+
     @ElementCollection
     @CollectionTable(name = "project_images", joinColumns = @JoinColumn(name = "project_id"))
     @OrderBy("sortOrder ASC")
-    private List<ImageData> images = new ArrayList<>();
+    private List<ProjectImageData> images = new ArrayList<>();
 
     @ManyToOne
     private Room room;
