@@ -4,6 +4,7 @@ import az.edu.itbrains.Phaethon_Final_Lap.DTOs.testimonials.TestimonialsCreateDT
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.testimonials.TestimonialsDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.models.User;
 import az.edu.itbrains.Phaethon_Final_Lap.services.TestimonialService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -27,12 +28,12 @@ public class TestimonialsController {
         return "testimonials";
 }
 
-        @PostMapping("/testimonials")
-        @PreAuthorize("isAuthenticated()")
-        public String submitTestimonial(TestimonialsCreateDTO testimonialCreateDTO, Principal principal, RedirectAttributes redirectAttributes) {
-        String email =  principal.getName();
-        testimonialService.postTestimonial(testimonialCreateDTO, email);
-        redirectAttributes.addFlashAttribute("success", "Rəyiniz uğurla göndərildi.");
-            return "redirect:/testimonials";
+            @PostMapping("/testimonials")
+            @PreAuthorize("isAuthenticated()")
+            public String submitTestimonial(@Valid TestimonialsCreateDTO testimonialCreateDTO, Principal principal, RedirectAttributes redirectAttributes) {
+            String email =  principal.getName();
+            testimonialService.postTestimonial(testimonialCreateDTO, email);
+                redirectAttributes.addFlashAttribute("success", "Rəyiniz uğurla göndərildi.");
+                return "redirect:/testimonials";
+            }
         }
-    }

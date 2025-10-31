@@ -23,6 +23,39 @@
             height: 220px;
             object-fit: cover;
         }
+
+        /* Минималистичная пагинация */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            gap: 15px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .pagination button {
+            background: none;
+            border: none;
+            color: #0d6efd;
+            cursor: pointer;
+            font-size: 22px;
+            padding: 0;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .pagination button:hover {
+            color: #0056b3;
+        }
+
+        .pagination span {
+            font-size: 16px;
+            color: #333;
+            min-width: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -38,8 +71,8 @@
 
     <!-- Projects -->
     <div class="container py-5">
-        <div class="row g-4">
-            <div th:each="project : ${projects}" class="col-md-6 col-lg-4">
+        <div class="row g-4" id="projectsContainer">
+            <div th:each="project : ${projects}" class="col-md-6 col-lg-4 project-item">
                 <div class="card project-card h-100">
                     <img th:src="${project.imageUrl}" th:alt="${project.title}">
                     <div class="card-body">
@@ -54,11 +87,58 @@
         </div>
     </div>
 
+    <!-- Pagination -->
+    <div class="pagination">
+        <button id="prevPage">&lt;</button>
+        <span id="pageIndicator">1</span>
+        <button id="nextPage">&gt;</button>
+    </div>
 
     <!-- Back to Top -->
-    <a href="#!" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
+    <a href="#!" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+        <i class="bi bi-arrow-up"></i>
+    </a>
 
 </div>
+
+<script>
+    const projectsContainer = document.getElementById('projectsContainer');
+    const projects = Array.from(projectsContainer.getElementsByClassName('project-item'));
+    const pageIndicator = document.getElementById('pageIndicator');
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
+
+    const itemsPerPage = 6;
+    let currentPage = 1;
+    const totalPages = Math.ceil(projects.length / itemsPerPage);
+
+    function showPage(page) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+
+        projects.forEach((project, index) => {
+            project.style.display = (index >= start && index < end) ? 'block' : 'none';
+        });
+
+        pageIndicator.textContent = page;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+        }
+    });
+
+    // Инициализация
+    showPage(currentPage);
+</script>
 </body>
 </html>
