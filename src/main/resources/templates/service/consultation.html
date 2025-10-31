@@ -27,7 +27,6 @@
                         <p class="card-text"><strong>Telefon:</strong>
                             <span th:text="${consultant.phoneNumber}">+994 50 123 45 67</span>
                         </p>
-                    <!-- Кнопка "Seç" ведёт на страницу конкретного консультанта -->
                     <form th:action="'/services/meslehetlesme/'+${consultant.id}" method="get">
                         <button type="submit" class="btn btn-primary">Seç</button>
                     </form>

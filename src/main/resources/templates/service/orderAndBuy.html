@@ -85,7 +85,7 @@
             <div class="filter-scroll" id="categoryScroll" style="overflow-x: auto; white-space: nowrap;">
                 <!-- Список категорий -->
                 <a th:each="category : ${categories}"
-                   th:href="@{/services/sifaris-et-ve-al(categoryId=${category.id})}"
+                   th:href="'/services/sifaris-et-ve-al/'+${category.id}"
                    class="btn btn-outline-primary filter-btn"
                    th:classappend="${selectedCategoryId == category.id} ? ' active' : ''"
                    th:text="${category.name}">

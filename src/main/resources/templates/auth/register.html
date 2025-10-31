@@ -287,27 +287,31 @@
                 <h1 class="register-title">Создайте свою учетную запись агента</h1>
                 <p class="register-subtitle">Присоединяйтесь к нашей платформе и получите доступ ко всем инструментам для работы с недвижимостью.</p>
 
-                <form method="post">
+                <form th:object="${register}" method="post">
                     <div class="form-row">
                         <div class="form-group">
-                            <label class="form-label">Имя*</label>
-                            <input type="text" class="form-input" placeholder="" required>
+                            <label class="form-label">Ad*</label>
+                            <input type="text" th:field="*{name}" class="form-input" placeholder="Adınızı daxil edin" required>
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red; margin-top:5px;" ></div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Фамилия*</label>
-                            <input type="text" class="form-input" placeholder="" required>
+                            <label class="form-label">Soyad*</label>
+                            <input type="text" th:field="*{surname}" class="form-input" placeholder="Soyadınızı daxil edin" required>
+                            <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" style="color:red; margin-top:5px;"></div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Электронная почта*</label>
-                        <input type="email" class="form-input" placeholder="" required>
+                        <label class="form-label">E-poçt*</label>
+                        <input type="email" th:field="*{email}" class="form-input" placeholder="E-poçt ünvanınızı daxil edin." required>
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red; margin-top:5px;"></div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Пароль*</label>
+                        <label class="form-label">Parol*</label>
                         <div class="password-wrapper">
-                            <input type="password" class="form-input" id="password" placeholder="" required>
+                            <input type="password" th:field="*{password}" class="form-input" id="password" placeholder="Şifrənizi daxil edin." required>
+                            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red; margin-top:5px;"></div>
                             <button type="button" class="password-toggle" onclick="togglePassword('password')">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -318,9 +322,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Подтвердите пароль*</label>
+                        <label for="confirm-password" class="form-label">Parolu təsdiqləyin*</label>
                         <div class="password-wrapper">
-                            <input type="password" class="form-input" id="confirm-password" placeholder="" required>
+                            <input type="password" th:field="*{confirmPassword}"  class="form-input" id="confirm-password" placeholder="Şifrənizi yenidən daxil edin." required>
+                            <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" style="color:red; margin-top:5px;"></div>
                             <button type="button" class="password-toggle" onclick="togglePassword('confirm-password')">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -333,14 +338,14 @@
                     <div class="checkbox-wrapper">
                         <input type="checkbox" id="terms" required>
                         <label for="terms">
-                            Я согласен с <a href="#">Условиями использования</a> и <a href="#">Политикой конфиденциальности</a>
+                            razıyam  <a href="#">İstifadə şərtləri</a> и <a href="#">Məxfilik Siyasəti</a>
                         </label>
                     </div>
 
-                    <button type="submit" class="btn-register">Зарегистрироваться</button>
+                    <button type="submit" class="btn-register">Qeydiyyatdan keçin</button>
                 </form>
 
-                <div class="divider">или</div>
+                <div class="divider">və ya</div>
 
                 <button type="button" class="btn-google">
                     <svg class="google-icon" viewBox="0 0 24 24">
@@ -353,7 +358,7 @@
                 </button>
 
                 <div class="login-link">
-                    Уже есть учетная запись? <a href="#">Войти</a>
+                    Artıq hesabınız var?<a href="/login">Daxil ol</a>
                 </div>
             </div>
         </div>

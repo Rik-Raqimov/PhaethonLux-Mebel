@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Отзывы клиентов | PhaethonLux</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .main-content-wrapper {
+            max-width: 768px;
+            margin: 40px auto;
+            padding: 0 15px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        .review-form-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .review-form-card h3 {
+            margin: 0 0 18px;
+            color: #2c3e50;
+            font-size: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .review-form-card textarea {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #dcdfe6;
+            resize: vertical;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 0;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .rating {
+            direction: rtl;
+            unicode-bidi: bidi-override;
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            color: #dcdfe6;
+            cursor: pointer;
+            margin: 0 2px;
+            transition: color 0.2s ease;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #ffc107;
+        }
+
+        .testimonial-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+            border-left: 5px solid #007bff;
+        }
+
+        .testimonial-item h5 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .testimonial-item p {
+            margin: 0 0 10px 0;
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .stars-display {
+            display: flex;
+            gap: 3px;
+        }
+
+        .stars-display i {
+            color: #ffc107;
+            font-size: 18px;
+        }
+
+        /* Пагинация */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .pagination button:disabled {
+            background-color: #a0c4ff;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="bg-white p-0">
+
+    <div class="container-fluid pb-5 bg-primary hero-header">
+        <div class="container py-5">
+            <div class="row g-3 align-items-center">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1 class="display-1 mb-0 animated slideInLeft">Testimonial</h1>
+                </div>
+                <div class="col-lg-6 animated slideInRight">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-end mb-0">
+                            <li class="breadcrumb-item"><a class="text-primary" href="#!">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="#!">Pages</a></li>
+                            <li class="breadcrumb-item text-secondary active" aria-current="page">Testimonial</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content-wrapper">
+        <h2>Отзывы наших клиентов</h2>
+
+        <div class="review-form-card">
+            <h3>Оставить отзыв</h3>
+
+            <form method="post" action="/testimonials" id="reviewForm">
+                <textarea id="commentText" name="commentText" placeholder="Напишите ваш отзыв" required></textarea>
+
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" required><label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                </div>
+
+                <button type="submit" class="submit-button">Отправить</button>
+            </form>
+        </div>
+
+        <!-- Отзывы -->
+        <div id="testimonialList">
+            <div th:each="testimonial : ${testimonials}" class="testimonial-item" th:data-rating="${testimonial.rating}">
+                <h5 th:text="${testimonial.email}">ivan@gmail.com</h5>
+                <p th:text="${testimonial.commentText}">Отличный сервис, все сделали быстро и качественно!</p>
+                <div class="stars-display"></div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button id="prevPage">Назад</button>
+            <span id="pageIndicator">1</span>
+            <button id="nextPage">Вперед</button>
+        </div>
+    </div>
+
+    <script>
+        // Проверка формы
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            const comment = document.getElementById('commentText').value.trim();
+            const rating = document.querySelector('input[name="rating"]:checked');
+
+            if (comment === '') {
+                alert('Пожалуйста, напишите комментарий');
+                e.preventDefault();
+            } else if (!rating) {
+                alert('Пожалуйста, выберите рейтинг');
+                e.preventDefault();
+            }
+        });
+
+        // Показ звёзд визуально
+        document.querySelectorAll('.testimonial-item').forEach(item => {
+            const rating = parseInt(item.getAttribute('data-rating'));
+            const container = item.querySelector('.stars-display');
+            container.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('i');
+                star.textContent = i <= rating ? '★' : '☆';
+                container.appendChild(star);
+            }
+        });
+
+        // Простая пагинация
+        const itemsPerPage = 3;
+        const testimonials = Array.from(document.querySelectorAll('.testimonial-item'));
+        let currentPage = 1;
+
+        function renderPage(page) {
+            testimonials.forEach((item, index) => {
+                item.style.display = (index >= (page - 1) * itemsPerPage && index < page * itemsPerPage) ? 'block' : 'none';
+            });
+            document.getElementById('pageIndicator').textContent = page;
+            document.getElementById('prevPage').disabled = page === 1;
+            document.getElementById('nextPage').disabled = page === Math.ceil(testimonials.length / itemsPerPage);
+        }
+
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 1) renderPage(--currentPage);
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            if (currentPage < Math.ceil(testimonials.length / itemsPerPage)) renderPage(++currentPage);
+        });
+
+        renderPage(currentPage);
+    </script>
+
+</div>
+</body>
+</html>

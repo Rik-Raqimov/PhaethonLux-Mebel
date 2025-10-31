@@ -1,7 +1,7 @@
 package az.edu.itbrains.Phaethon_Final_Lap.conrollers;
 
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.room.RoomDTO;
-import az.edu.itbrains.Phaethon_Final_Lap.service.RoomService;
+import az.edu.itbrains.Phaethon_Final_Lap.services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

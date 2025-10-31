@@ -1,10 +1,13 @@
 package az.edu.itbrains.Phaethon_Final_Lap.conrollers;
 
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.auth.RegisterDTO;
-import az.edu.itbrains.Phaethon_Final_Lap.service.UserService;
+import az.edu.itbrains.Phaethon_Final_Lap.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -18,15 +21,20 @@ public class AuthController {
     }
 
     @GetMapping("/register")
-    public String register(){
-        return "auth/register.html";
+    public String register(@ModelAttribute("register") RegisterDTO registerDTO){
+        return "auth/register";
     }
 
 
     @PostMapping("/register")
-    public String register(RegisterDTO registerDto){
-
-        boolean result = userService.registerUser(registerDto);
+    public String register(@Valid @ModelAttribute("register") RegisterDTO registerDTO, BindingResult bindingResult){
+        if (!registerDTO.getPassword().equals(registerDTO.getConfirmPassword())){
+            bindingResult.rejectValue("confirmPassword", "error.registerDTO", "Parollar uyğun gəlmir");
+        }
+        if (bindingResult.hasErrors()){
+            return "auth/register";
+        }
+        boolean result = userService.registerUser(registerDTO);
         return "redirect:/login";
     }
 }

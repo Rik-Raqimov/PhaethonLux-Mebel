@@ -8,7 +8,7 @@ import az.edu.itbrains.Phaethon_Final_Lap.DTOs.deliveryService.DeliveryDetailDTO
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.serviceInfo.ServiceInfoDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.supportCard.SupportCardDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.timeSlot.TimeSlotDTO;
-import az.edu.itbrains.Phaethon_Final_Lap.service.*;
+import az.edu.itbrains.Phaethon_Final_Lap.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

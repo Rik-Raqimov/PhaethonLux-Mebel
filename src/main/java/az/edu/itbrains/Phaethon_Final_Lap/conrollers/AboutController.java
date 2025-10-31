@@ -1,7 +1,7 @@
 package az.edu.itbrains.Phaethon_Final_Lap.conrollers;
 
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.about.AboutDTO;
-import az.edu.itbrains.Phaethon_Final_Lap.service.AboutService;
+import az.edu.itbrains.Phaethon_Final_Lap.services.AboutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
