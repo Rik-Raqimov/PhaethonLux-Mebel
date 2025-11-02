@@ -1,7 +1,9 @@
 package az.edu.itbrains.Phaethon_Final_Lap.conrollers;
 
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.contactMessage.ContactMessageCreateDTO;
+import az.edu.itbrains.Phaethon_Final_Lap.repositories.ContactMessageRepository;
 import az.edu.itbrains.Phaethon_Final_Lap.services.ContactMessageService;
+import az.edu.itbrains.Phaethon_Final_Lap.services.MailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +20,7 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 public class ContactController {
+    private final MailService mailService;
     private final ContactMessageService contactMessageService;
     @GetMapping("/contact")
     public String contact( @ModelAttribute("contact") ContactMessageCreateDTO contactMessageCreateDTO) {
@@ -28,6 +31,8 @@ public class ContactController {
         if(bindingResult.hasErrors()) {
             return "/contact";
         }
+
+        mailService.sendMail(contactMessageCreateDTO);
         contactMessageService.createContactMessage(contactMessageCreateDTO);
         return "redirect:/contact";
     }
