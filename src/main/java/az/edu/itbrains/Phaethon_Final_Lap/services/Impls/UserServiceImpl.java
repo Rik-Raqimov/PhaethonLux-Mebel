@@ -19,18 +19,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean registerUser(RegisterDTO registerDto) {
         try {
-            User findUser = userRepository.findByEmail(registerDto.getEmail());
-            if (findUser != null) {
+            boolean userExists = userRepository.findByEmail(registerDto.getEmail()).isPresent();
+
+            if (userExists) {
                 return false;
             }
             User user = new User();
             user.setName(registerDto.getName());
             user.setSurname(registerDto.getSurname());
             user.setEmail(registerDto.getEmail());
-            String password = passwordEncoder.encode(registerDto.getPassword());
-            user.setPassword(password);
+            String encodedPassword = passwordEncoder.encode(registerDto.getPassword());
+            user.setPassword(encodedPassword);
             userRepository.save(user);
+
             return true;
+
         } catch (Exception e) {
             return false;
         }

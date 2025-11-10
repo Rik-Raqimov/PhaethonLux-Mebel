@@ -69,8 +69,8 @@
         }
     </style>
 </head>
-
 <body>
+
 <div layout:fragment="content" class="bg-white p-5">
     <section class="container">
         <div class="text-center mb-4">
@@ -85,7 +85,7 @@
             <div class="filter-scroll" id="categoryScroll" style="overflow-x: auto; white-space: nowrap;">
                 <!-- Список категорий -->
                 <a th:each="category : ${categories}"
-                   th:href="'/services/sifaris-et-ve-al/'+${category.id}"
+                   th:href="'/services/sifaris-et-ve-al?categoryId='+${category.id}"
                    class="btn btn-outline-primary filter-btn"
                    th:classappend="${selectedCategoryId == category.id} ? ' active' : ''"
                    th:text="${category.name}">
@@ -112,7 +112,7 @@
                         <h5 th:text="${product.name}" class="card-title">Məhsul</h5>
                         <p th:text="${product.price}" class="card-text">Qiymət: 150₼</p>
                         <div class="mt-auto">
-                            <a th:href="'/services/sifaris-et-ve-al/detail/'+${product.id}" class="btn btn-primary w-100">Sifariş et</a>
+                            <a th:href="'/services/sifaris-et-ve-al/detail/'+${product.id}" class="btn btn-primary w-100">Daha çox</a>
                         </div>
                     </div>
                 </div>

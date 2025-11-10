@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -21,8 +22,8 @@ public class Coupon {
     @Column(nullable = false)
     private Double discount;
     @Column(nullable = false)
-    private LocalTime startTime;
+    private LocalDateTime startDateTime;
     @Column(nullable = false)
-    private LocalTime endTime;
+    private LocalDateTime endDateTime;
     private Boolean active = true;
 }

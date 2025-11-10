@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="utf-8">
+    <title>Корзина | PhaethonLux</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/front/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/front/css/style.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .basket-header {
+            background: linear-gradient(135deg, rgba(13, 110, 253, 0.1) 0%, rgba(13, 110, 253, 0.05) 100%);
+            padding: 40px 0;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #0d6e1d;
+        }
+
+        .basket-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .basket-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .empty-basket-container {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-basket-icon {
+            font-size: 80px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-basket-text {
+            color: #999;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .table-responsive {
+            margin-bottom: 30px;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background: #0d6b68;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            border: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .table tbody td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .product-cell {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .product-info h6 {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .product-info small {
+            color: #999;
+        }
+
+        .qty-btn {
+            background: #e6f0ef;
+            border: none;
+            color: #0d6b68;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover {
+            background: #0d6b68;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .qty-input {
+            width: 50px;
+            border: 1px solid #e6f0ef;
+            border-radius: 6px;
+            padding: 6px;
+            text-align: center;
+            font-weight: 600;
+            color: #0d6b68;
+        }
+
+        .qty-input:focus {
+            outline: none;
+            border-color: #0d6b68;
+            background: #e6f0ef;
+        }
+
+        .price-text {
+            font-weight: 600;
+            color: #0d6b68;
+            font-size: 1.1rem;
+        }
+
+        .btn-remove {
+            background: #dc3545;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .btn-remove:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+
+        .basket-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-top: 2px solid #f0f0f0;
+            border-bottom: 2px solid #f0f0f0;
+            margin: 30px 0;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s;
+            border: 2px solid #0d6b68;
+            background: white;
+            color: #0d6b68;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-action:hover {
+            background: #0d6b68;
+            color: white;
+        }
+
+        .summary-section {
+            background: #e6f0ef;
+            padding: 30px;
+            border-radius: 8px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0d6b68;
+            margin-bottom: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(13, 107, 104, 0.2);
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .summary-row.total {
+            border: none;
+            padding-top: 15px;
+            margin-top: 15px;
+            border-top: 2px solid #0d6b68;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0d6b68;
+        }
+
+        .btn-checkout {
+            background: linear-gradient(135deg, #0d6b68 0%, #0d6e1d 100%);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(13, 107, 104, 0.3);
+            color: white;
+        }
+
+        .info-box {
+            background: white;
+            border-left: 4px solid #0d6b68;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            color: #0d6b68;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .basket-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .basket-container {
+                padding: 15px;
+            }
+
+            .summary-section {
+                position: static;
+                margin-top: 30px;
+            }
+
+            .basket-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-action {
+                width: 100%;
+            }
+
+            .product-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content" class="bg-white p-0">
+
+    <div class="basket-header">
+        <div class="container">
+            <h1><i class="bi bi-basket2 me-3"></i>Sizin Səbətiniz</h1>
+            <p class="text-muted mb-0">Seçilmiş xidmətləri yoxlayın və sifariş vermə mərhələsinə keçin</p>
+        </div>
+    </div>
+
+    <div class="container basket-container">
+
+        <div th:if="${basket.items.isEmpty()}" class="empty-basket-container">
+            <div class="empty-basket-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <p class="empty-basket-text">Səbət boşdur</p>
+            <p class="text-muted mb-30">Bizim premium dizayn xidmətlərimizi tanış olun</p>
+            <a href="/services/sifaris-et-ve-al" class="btn btn-primary px-5 py-3">
+                <i class="bi bi-bag-plus me-2"></i>Xidmətləri Kəşf Edin
+            </a>
+        </div>
+
+        <div th:unless="${basket.items.isEmpty()}">
+            <div class="row g-4">
+
+                <div class="col-lg-8">
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                            <tr>
+                                <th>Xidmət</th>
+                                <th class="text-center">Həcm</th>
+                                <th class="text-end">Qiymət</th>
+                                <th class="text-end">Cəmi</th>
+                                <th class="text-end">Sil</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${basket.items}">
+                                <td>
+                                    <div class="product-cell">
+                                        <img th:src="${item.productImageUrl}" alt="Product" class="product-image">
+                                        <div class="product-info">
+                                            <h6 th:text="${item.productName}">Product Name</h6>
+                                            <small> <span th:text="${item.productId}">0</span></small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <form method="POST" action="/basket/update" style="display: flex; gap: 8px; justify-content: center; align-items: center;">
+                                        <button type="submit" name="action" value="decrease" class="qty-btn">−</button>
+                                        <input type="hidden" name="productId" th:value="${item.productId}">
+                                        <input type="number" class="qty-input" name="quantity" th:value="${item.quantity}" min="1">
+                                        <button type="submit" name="action" value="increase" class="qty-btn">+</button>
+                                    </form>
+                                </td>
+                                <td class="text-end">
+                                    <span th:text="${item.productPrice}" class="price-text">10.00 ₼</span>
+                                </td>
+                                <td class="text-end">
+                                    <span class="price-text" th:text="${item.quantity * 10.00} + ' ₼'">0 ₼</span>
+                                </td>
+                                <td class="text-end">
+                                    <form th:action="'/basket/remove/'+${item.productId}" method="post" style="display: inline;">
+                                    <button type="submit" class="btn-remove" title="Sil"
+                                            onclick="return confirm('Silmək istədiyinizdən əminsiniz?')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="basket-actions">
+                        <a href="/services" class="btn-action">
+                            <i class="bi bi-arrow-left me-2"></i>Xidmətlərə Qayıt
+                        </a>
+                        <form action="/basket/clear" method="post" style="display: inline;">
+                            <button type="submit" class="btn-action">
+                                <i class="bi bi-trash me-2"></i>Səbəti Təmizlə
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="summary-section">
+                        <h5 class="summary-title">
+                            <i class="bi bi-receipt me-2"></i>Hesablama
+                        </h5>
+
+                        <div class="summary-row">
+                            <span>Aralıq Cəmi:</span>
+                            <span class="price-text" th:text="${basket.subtotal} + ' ₼'">0 ₼</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Çatdırılma:</span>
+                            <span class="price-text" th:text="${basket.shipping} + ' ₼'">0 ₼</span>
+                        </div>
+
+                        <div class="summary-row total">
+                            <span>CƏMİ:</span>
+                            <span th:text="${basket.total} + ' ₼'">0 ₼</span>
+                        </div>
+
+                        <a href="/basket/checkout" class="btn btn-checkout">
+                            <i class="bi bi-credit-card me-2"></i>Sifariş Et
+                        </a>
+
+                        <div class="info-box">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Çatdırılma sifarişi tamamlayarkən hesablanır
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/front/js/main.js"></script>
+</body>
+
+</html>
