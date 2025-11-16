@@ -2,18 +2,14 @@ package az.edu.itbrains.Phaethon_Final_Lap.services.Impls;
 
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.basket.BasketDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.basket.BasketItemDTO;
-import az.edu.itbrains.Phaethon_Final_Lap.models.Basket;
-import az.edu.itbrains.Phaethon_Final_Lap.models.BasketItem;
-import az.edu.itbrains.Phaethon_Final_Lap.models.Product;
-import az.edu.itbrains.Phaethon_Final_Lap.models.User;
-import az.edu.itbrains.Phaethon_Final_Lap.repositories.BasketItemRepository;
-import az.edu.itbrains.Phaethon_Final_Lap.repositories.BasketRepository;
-import az.edu.itbrains.Phaethon_Final_Lap.repositories.ProductRepository;
-import az.edu.itbrains.Phaethon_Final_Lap.repositories.UserRepository;
+import az.edu.itbrains.Phaethon_Final_Lap.models.*;
+import az.edu.itbrains.Phaethon_Final_Lap.repositories.*;
 import az.edu.itbrains.Phaethon_Final_Lap.services.BasketItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -21,7 +17,9 @@ import java.util.List;
 public class BasketItemServiceImpl implements BasketItemService {
 
     private final BasketItemRepository basketItemRepository;
+    private final UserCouponRepository userCouponRepository;
     private final ProductRepository productRepository;
+    private final CouponRepository couponRepository;
     private final BasketRepository basketRepository;
     private final UserRepository userRepository;
 
@@ -41,6 +39,7 @@ public class BasketItemServiceImpl implements BasketItemService {
 
         // 3. Преобразуем товары в BasketItemDTO
         List<BasketItemDTO> basketItems = basket.getBasketItems().stream()
+                .sorted(Comparator.comparing(basketItem -> basketItem.getProduct().getId()))
                 .map(basketItem -> new BasketItemDTO(
                         basketItem.getProduct().getId(),
                         basketItem.getProduct().getName(),
@@ -52,18 +51,36 @@ public class BasketItemServiceImpl implements BasketItemService {
 
         // 4. Вычисляем суммы
         double subtotal = basket.getBasketItems().stream()
-                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
-                .sum();
+                .mapToDouble(BasketItem::getTotalPrice).sum();
 
         double shipping = subtotal > 0 ? 10.0 : 0; // Пример: 10 за доставку
         double total = subtotal + shipping;
 
+        double couponDiscount = 0.0;
+        UserCoupon userCoupon = basket.getUserCoupon();
+        if (userCoupon != null && !userCoupon.isUsed()){
+            Coupon coupon = userCoupon.getCoupon();
+            if (coupon.isActive()
+                    && coupon.getStartDateTime().isBefore(LocalDateTime.now())
+                    && coupon.getEndDateTime().isAfter(LocalDateTime.now())){
+                couponDiscount = subtotal * (coupon.getDiscount() / 100);
+                total -= couponDiscount;
+            }
+        }
+
+
+        double cashback = 0.0;
+        Double basketCashback = user.getCashbackPercentage();
+        if (total >= 500) {
+            cashback = total * ((basketCashback != null ? basketCashback : 0.0) / 100.0);
+        }
+
         // 5. Возвращаем BasketDTO с товарами и суммами
-        return new BasketDTO(subtotal, shipping, total, basketItems);
+        return new BasketDTO(subtotal, shipping, total, cashback, couponDiscount,  basketItems);
     }
 
     @Override
-    public void updateBasket(String email, Long productId, int quantity) {
+    public void updateBasket(String email, Long productId, int quantity,String action) {
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("İstifadəçi tapılmadı: " + email));
@@ -74,11 +91,51 @@ public class BasketItemServiceImpl implements BasketItemService {
                 .filter(item -> item.getProduct().getId().equals(productId))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Əşya səbətdə tapılmadı"));
-
-        basketItem.setQuantity(quantity);
+        if ("increase".equals(action)) {
+            basketItem.setQuantity(basketItem.getQuantity() + 1);
+        } else if ("decrease".equals(action)) {
+            int newQty = basketItem.getQuantity() - 1;
+            basketItem.setQuantity(Math.max(1, newQty));
+        } else {
+            basketItem.setQuantity(quantity); // на случай ручного ввода
+        }
 
         basketItemRepository.save(basketItem);
 
+    }
+
+    @Override
+    public void applyCoupon(String email, String code) {
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("Sebet tapilmadi"));
+
+        Basket basket = basketRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Sebet tapilmadi"));
+
+        Coupon coupon = couponRepository.findByCode(code);
+        if (coupon == null) throw new RuntimeException("Kupon tapilmadi");
+
+        if (!coupon.isActive()){
+            throw new  RuntimeException("Kupon aktiv deyil");
+        }
+        if (coupon.getEndDateTime().isBefore(LocalDateTime.now())){
+            throw new RuntimeException("Kuponun müddəti bitdi.");
+        }
+
+        UserCoupon userCoupon = userCouponRepository.findByUserAndCoupon(user, coupon)
+                .orElseGet(() -> {
+                    UserCoupon uc = new UserCoupon();
+                    uc.setUser(user);
+                    uc.setCoupon(coupon);
+                    uc.setUsed(false);
+                    return userCouponRepository.save(uc);
+                });
+
+        // 6. Проверяем, не использован ли купон
+        if (userCoupon.isUsed()) throw new RuntimeException("Kupon artıq istifadə olunub");
+
+
+        basket.setUserCoupon(userCoupon);
+        basketRepository.save(basket);
 
     }
 

@@ -21,4 +21,10 @@ public class BasketItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Basket basket;
+
+    @Transient
+    public double getTotalPrice(){
+        if (product == null) return 0.0;
+        return quantity * product.getPrice();
+    }
 }

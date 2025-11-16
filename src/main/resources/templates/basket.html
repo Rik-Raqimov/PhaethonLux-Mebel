@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Корзина | PhaethonLux</title>
+    <title>Səbət | PhaethonLux</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,6 +12,7 @@
     <link href="/front/css/bootstrap.min.css" rel="stylesheet">
     <link href="/front/css/style.css" rel="stylesheet">
     <style>
+        /* ... (Стили CSS, которые вы предоставили, остаются без изменений) ... */
         * {
             font-family: 'Space Grotesk', sans-serif;
         }
@@ -154,6 +155,13 @@
             font-size: 1.1rem;
         }
 
+        /* Yeni Endirim Rəngi üçün Stil */
+        .discount-text {
+            font-weight: 600;
+            color: #dc3545; /* Qırmızı rəng - Endirim */
+            font-size: 1.1rem;
+        }
+
         .btn-remove {
             background: #dc3545;
             border: none;
@@ -220,6 +228,11 @@
             border-bottom: 1px solid rgba(13, 107, 104, 0.2);
             font-size: 1rem;
             color: #333;
+        }
+
+        .summary-row.no-border {
+            border-bottom: none;
+            padding-bottom: 5px;
         }
 
         .summary-row.total {
@@ -326,8 +339,7 @@
                                 <th>Xidmət</th>
                                 <th class="text-center">Həcm</th>
                                 <th class="text-end">Qiymət</th>
-                                <th class="text-end">Cəmi</th>
-                                <th class="text-end">Sil</th>
+                                <th class="text-end">Cəmi</th> <th class="text-end">Sil</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -350,18 +362,18 @@
                                     </form>
                                 </td>
                                 <td class="text-end">
-                                    <span th:text="${item.productPrice}" class="price-text">10.00 ₼</span>
+                                    <span th:text="${item.productPrice} + ' ₼'" class="price-text">120.00 ₼</span>
                                 </td>
                                 <td class="text-end">
-                                    <span class="price-text" th:text="${item.quantity * 10.00} + ' ₼'">0 ₼</span>
+                                    <span class="price-text" th:text="${item.quantity * item.productPrice} + ' ₼'">480.0 ₼</span>
                                 </td>
                                 <td class="text-end">
                                     <form th:action="'/basket/remove/'+${item.productId}" method="post" style="display: inline;">
-                                    <button type="submit" class="btn-remove" title="Sil"
-                                            onclick="return confirm('Silmək istədiyinizdən əminsiniz?')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
+                                        <button type="submit" class="btn-remove" title="Sil"
+                                                onclick="return confirm('Silmək istədiyinizdən əminsiniz?')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>
@@ -386,19 +398,35 @@
                             <i class="bi bi-receipt me-2"></i>Hesablama
                         </h5>
 
-                        <div class="summary-row">
+                        <div class="summary-row no-border">
                             <span>Aralıq Cəmi:</span>
-                            <span class="price-text" th:text="${basket.subtotal} + ' ₼'">0 ₼</span>
+                            <span class="price-text" th:text="${basket.subtotal} + ' ₼'">480.0 ₼</span>
                         </div>
 
-                        <div class="summary-row">
+                        <form action="/basket/coupon" method="post">
+                        <div class="mb-4 pt-3 pb-3" style="border-bottom: 1px solid rgba(13, 107, 104, 0.2);">
+                            <h6 class="summary-title" style="font-size: 1rem; color: #333; margin-bottom: 10px;">Endirim Kodu</h6>
+                            <div style="display: flex; gap: 8px;">
+                                <input type="text" name="code" placeholder="Promo kodu daxil edin">
+                                <button type="submit" id="apply-coupon" class="btn btn-action" style="padding: 6px 15px; border-width: 1px; font-weight: 500;">
+                                    Tətbiq Et
+                                </button>
+                            </div>
+                        </div>
+                        </form>
+
+                        <div class="summary-row no-border" th:if="${basket.couponDiscount gt 0}">
+                            <span>Endirim Məbləği:</span>
+                            <span class="discount-text" th:text="'-' + ${basket.couponDiscount} + ' ₼'">-48.0 ₼</span>
+                        </div>
+                        <div class="summary-row" th:classappend="${basket.couponDiscount gt 0} ? 'pt-3' : ''">
                             <span>Çatdırılma:</span>
-                            <span class="price-text" th:text="${basket.shipping} + ' ₼'">0 ₼</span>
+                            <span class="price-text" th:text="${basket.shipping} + ' ₼'">10.0 ₼</span>
                         </div>
 
                         <div class="summary-row total">
                             <span>CƏMİ:</span>
-                            <span th:text="${basket.total} + ' ₼'">0 ₼</span>
+                            <span th:text="${basket.total} + ' ₼'">442.0 ₼</span>
                         </div>
 
                         <a href="/basket/checkout" class="btn btn-checkout">

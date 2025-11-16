@@ -16,5 +16,7 @@ public interface BasketItemService {
 
     void deleteFromBasket(Long productId, String email);
 
-    void updateBasket(String email, Long productId, int quantity);
+    void updateBasket(String email, Long productId, int quantity, String action);
+
+    void applyCoupon(String email, String code);
 }

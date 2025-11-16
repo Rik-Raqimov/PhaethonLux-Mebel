@@ -33,6 +33,8 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+    private Double cashbackPercentage = 0.0;
+
 
 
     @ElementCollection(fetch = FetchType.EAGER)

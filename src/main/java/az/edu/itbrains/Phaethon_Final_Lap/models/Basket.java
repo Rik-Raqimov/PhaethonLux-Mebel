@@ -22,6 +22,9 @@ public class Basket {
     @JoinColumn(name = "user_id")
     private User user;
 
-        @OneToMany(mappedBy = "basket")
-        private List<BasketItem> basketItems = new ArrayList<>();
+    @OneToMany(mappedBy = "basket")
+    private List<BasketItem> basketItems = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserCoupon userCoupon;
 }

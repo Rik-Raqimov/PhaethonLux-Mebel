@@ -2,6 +2,7 @@ package az.edu.itbrains.Phaethon_Final_Lap.conrollers;
 
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.basket.BasketDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.DTOs.basket.BasketItemDTO;
+import az.edu.itbrains.Phaethon_Final_Lap.DTOs.coupon.CouponAddDTO;
 import az.edu.itbrains.Phaethon_Final_Lap.services.BasketItemService;
 import az.edu.itbrains.Phaethon_Final_Lap.services.UserService;
 import jakarta.validation.Valid;
@@ -36,10 +37,24 @@ public class BasketController {
         return "/basket";
     }
 
+    @PostMapping("/basket/coupon")
+    public String addCoupon(CouponAddDTO couponAddDTO, Principal principal, Model model){
+        String email = principal.getName();
+        try {
+            basketItemService.applyCoupon(email, couponAddDTO.getCode());
+        } catch (Exception e) {
+            model.addAttribute("couponError", e.getMessage());
+            BasketDTO basketDTO = basketItemService.getBasket(email);
+            model.addAttribute("basket", basketDTO);
+            return "redirect:/basket";
+        }
+        return "redirect:/basket";
+    }
+
     @PostMapping("/basket/update")
     public String updateBasket(@Valid BasketItemDTO basketItemDTO,
                                BindingResult bindingResult,
-                               Model model,
+                               Model model,@RequestParam("action") String action,
                                Principal principal) {
 
         String email = principal.getName();
@@ -50,7 +65,7 @@ public class BasketController {
             return "/basket";
         }
 
-        basketItemService.updateBasket(email, basketItemDTO.getProductId(), basketItemDTO.getQuantity());
+        basketItemService.updateBasket(email, basketItemDTO.getProductId(), basketItemDTO.getQuantity(),action);
         return "redirect:/basket";
     }
 

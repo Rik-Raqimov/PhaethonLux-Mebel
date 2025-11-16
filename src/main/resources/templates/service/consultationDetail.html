@@ -15,7 +15,7 @@
             background: #fff;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border-radius: 8px;
-            padding: 20px;
+            padding: 30px;
         }
         #timeSlots button {
             min-width: 80px;
@@ -24,22 +24,28 @@
             background-color: #0d6efd;
             color: #fff;
         }
-        .consultant-card {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-        }
-        .consultant-card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-        }
+   .consultant-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 95px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.consultant-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
         #calendar {
     max-width: 100%;
     height: 500px; /* обязательно укажи высоту! */
-    margin: 0 auto;
+    margin: 5px;
+    font-size: 10px;
 }
 
 
@@ -80,10 +86,25 @@
 
                     <!-- Информация о выбранном слоте -->
                     <div th:if="${bookedSlot != null}">
-                        <p><strong>Seçilmiş tarix və vaxt:</strong> <span th:text="${bookedSlot.time}">[Vaxt burada]</span></p>
-                        <p><strong>Servis:</strong> <span th:text="${bookedSlot.serviceName}">[Servis burada]</span></p>
-                        <p><strong>Müştəri ID:</strong> <span th:text="${bookedSlot.userId}">[User ID]</span></p>
-                    </div>
+                        <div> export default function BookingConfirmation({ bookedSlot }) {
+                            if (!bookedSlot) {
+                            return
+                            }
+
+                            return (
+                            <div>
+                                <h2>Rezervasiya tamamlandı ✅</h2>
+                                <p><strong>Seçilmiş tarix və vaxt:</strong> {bookedSlot.time}</p>
+                                <p><strong>Servis:</strong> {bookedSlot.serviceName}</p>
+                                <p><strong>Müştəri ID:</strong> {bookedSlot.userId}</p>
+                            </div>
+                            );
+                            }
+<!--                        </div>-->
+<!--                        <p><strong>Seçilmiş tarix və vaxt:</strong> <span th:text="${bookedSlot.time}">[Vaxt burada]</span></p>-->
+<!--                        <p><strong>Servis:</strong> <span th:text="${bookedSlot.serviceName}">[Servis burada]</span></p>-->
+<!--                        <p><strong>Müştəri ID:</strong> <span th:text="${bookedSlot.userId}">[User ID]</span></p>-->
+<!--                    </div>-->
 
                     <!-- Slot ID -->
                     <div th:if="${slotId != null}">

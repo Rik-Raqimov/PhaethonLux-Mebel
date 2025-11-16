@@ -13,5 +13,7 @@ public class BasketDTO {
     private double subtotal;
     private double shipping;
     private double total;
+    private double cashback;
+    private double couponDiscount;
     private List<BasketItemDTO> items;
 }

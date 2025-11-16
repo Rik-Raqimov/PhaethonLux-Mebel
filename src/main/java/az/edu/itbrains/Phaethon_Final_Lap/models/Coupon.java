@@ -25,5 +25,7 @@ public class Coupon {
     private LocalDateTime startDateTime;
     @Column(nullable = false)
     private LocalDateTime endDateTime;
-    private Boolean active = true;
+    @Column(nullable = false)
+    private boolean active = true;
+
 }
